@@ -22,7 +22,6 @@ class Server {
         this.app.use( express.static('public') );
 
     }
-
     // Defining routes
     routes() {
         this.app.use( '/api/users', require('../routes/user.routes') );
