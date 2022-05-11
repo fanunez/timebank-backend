@@ -1,7 +1,7 @@
 // npm packages
 const { response, request } = require('express');
 // models 
-const community_user = require('../models/userComunidad');
+const community_user = require('../models/community_user');
 // our modules
 const generateJWT = require('../helpers/jwt-generator');
 

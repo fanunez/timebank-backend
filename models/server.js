@@ -12,6 +12,7 @@ class Server {
         this.paths = {
             authPath: '/api/auth',
             userPath: '/api/users',
+            buscadorPath: '/api/buscador'
         }
         // Connect database
         this.connectDatabase();
@@ -37,8 +38,10 @@ class Server {
     }
     // Defining routes
     routes() {
-        this.app.use( this.paths.authPath, require('../routes/auth') );
+        this.app.use( this.paths.authPath, require('../routes/auth.routes') );
         this.app.use( this.paths.userPath, require('../routes/user.routes') );
+        this.app.use( this.paths.buscadorPath, require('../routes/buscador.routes') );
+
     }
     // Listening port
     listen() {

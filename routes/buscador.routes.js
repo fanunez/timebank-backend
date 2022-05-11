@@ -1,15 +1,14 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { login } = require('../controllers/auth')
+const { buscador } = require('../controllers/buscador.controllers')
 const { fieldValidator } = require('../middlewares/field-validator');
 
 const router = Router();
 
-router.post('/login', [
-    check('correo', 'El email es obligatorio').isEmail(),
-    check('contraseña', 'La contraseña es obligatoria').not().isEmpty(),
+router.post('/buscador', [
+    check('titulo', 'El titulo es obligatorio').not().isEmpty(),
     fieldValidator
-],login);
+],buscador);
 
 module.exports = router;

@@ -19,5 +19,4 @@ router.put('/', putUser );
 
 router.delete('/', deleteUser );
  
-
 module.exports = router;
