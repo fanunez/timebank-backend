@@ -18,6 +18,16 @@ pipeline {
                 echo 'build'
             }
         }
+        stage('SonarQube analysis') {
+    			steps {
+				echo "sonarqube"
+				dir("/var/lib/jenkins/workspace/timebank-backend-dev"){
+				    withSonarQubeEnv('sonarqube') { // Will pick the global server connection you have configured
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+				}
+			}
+  		}
         stage ( 'docker Build' ) {
             steps {
                 echo 'build'
