@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+	    scannerHome = tool 'SonarScanner 3.1.0';
+	}
     stages {
         stage ( 'install' ) {
             steps {
