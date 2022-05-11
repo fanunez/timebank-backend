@@ -9,10 +9,13 @@ pipeline {
             }
         }
         stage ( 'test' ) {
+            // steps {
+            //     dir( 'build_node' ) {
+            //         sh 'npm test'
+            //     }
+            // }
             steps {
-                dir( 'build_node' ) {
-                    sh 'npm test'
-                }
+                echo 'build'
             }
         }
         stage ( 'docker Build' ) {
