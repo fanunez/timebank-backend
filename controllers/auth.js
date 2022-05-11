@@ -1,5 +1,9 @@
+// npm packages
 const { response, request } = require('express');
+// models 
 const community_user = require('../models/userComunidad');
+// our modules
+const generateJWT = require('../helpers/jwt-generator');
 
 // Login de usuario
 const login = async( req, res = response ) => {
