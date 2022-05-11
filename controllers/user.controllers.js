@@ -1,37 +1,86 @@
 // npm packages
-const { response } = require('express');
+const { request, response } = require('express');
+//const bcryptjs = require('bcryptjs');
 
-// GET METHOD
-const getUser = ( req, res = response ) => {
+const community_user = require('../models/userComunidad');
+
+
+
+// Mostrar Usuarios
+const getUser = async( req = request, res = response ) => {
+    
+    const { limit = 5, since = 0 } = req.query;
+
+    const query = { state: true};
+
+    const [ total, usersComunidad ] = await Promise.all([
+        community_user.countDocuments( query ),
+        community_user.find( query )
+            .skip( Number(since) )
+            .limit( Number(limit) )
+    ]);
+
+    console.log(usersComunidad)
+
     res.json({
-        msg: 'get API - from controller'
-    })
+        total,
+        usersComunidad
+    });
+
 }
-// POST METHOD
-const postUser = ( req, res = response ) => {
+
+// Crear Usuario
+const postUser = async( req, res) => {
 
     // const body = req.body;
-    const { name } = req.body;
+    const { nombre, apellido, edad, correo, contraseña, tipoUsuario, state } = req.body;
+    const newUser = new community_user({ nombre, apellido, edad, correo, contraseña, tipoUsuario, state});
 
-    res.json({
-        msg: 'post API - from controller',
-        name
-    })
+    // Encriptar password
+    //const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
+    //userComunidad.contraseña = bcryptjs.hashSync( contraseña, salt ); // hashing
+
+    // Guardar en db y esperar guardado
+    await newUser.save();
+
+    res.json( newUser );
+
 }
-// PUT METHOD
-const putUser = ( req, res = response ) => {
+
+// Actualizar Usuario
+const putUser = async( req, res) => {
+
+    const { id } = req.params;
+    const { _id, contraseña, correo, ...remainder } = req.body;
+
+    //if( contraseña ) {
+        // Encriptar password
+    //    const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
+    //    remainder.contraseña = bcryptjs.hashSync( contraseña, salt ); // hashing
+    //}
+
+    const newUser = await community_user.findByIdAndUpdate( id, remainder );
+
+    res.json( newUser );
+
     res.json({
         msg: 'put API - from controller'
     })
 }
-// PATCH METHOD
-const patchUser = ( req, res = response ) => {
+
+// Eliminar Usuario
+const deleteUser = async(req, res) => {
+
+    const { id } = req.params;
+    
+    const user = await community_user.findByIdAndUpdate( id, { state: false } );
+    const userAuth = req.userAuth;
+    
     res.json({
-        msg: 'patch API - from controller'
-    })
-}
-// DELETE METHOD
-const deleteUser = ( req, res = response ) => {
+        user, 
+        userAuth
+    });
+
     res.json({
         msg: 'delete API - from controller'
     })
@@ -42,6 +91,5 @@ module.exports = {
     getUser,
     postUser,
     putUser,
-    patchUser,
     deleteUser,
 }
