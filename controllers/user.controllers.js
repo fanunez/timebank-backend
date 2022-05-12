@@ -30,11 +30,11 @@ const getUser = async( req = request, res = response ) => {
 }
 
 // Crear Usuario
-const postUser = async( req, res) => {
+const postUser = async( req = request, res = response ) => {
 
     // const body = req.body;
-    const { nombre, apellido, edad, correo, contraseña, tipoUsuario, state } = req.body;
-    const newUser = new community_user({ nombre, apellido, edad, correo, contraseña, tipoUsuario, state});
+    const { nombre, apellido, relacion, edad, telefono, rut, correo, contraseña, tipoUsuario, state } = req.body;
+    const newUser = new community_user({ nombre, apellido, relacion, edad, telefono, rut, correo, contraseña, tipoUsuario, state });
 
     // Encriptar password
     //const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado

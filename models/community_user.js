@@ -10,9 +10,21 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'El apellido es obligatorio']
     },
+    relacion: {
+        type: String,
+        required: [true, 'La relacion es obligatoria']
+    },
     edad: {
         type: Number,
         required: [true, 'La edad es obligatorio']
+    },
+    telefono: {
+        type: String,
+        required: [true, 'El telefono es obligatorio']
+    },
+    rut: {
+        type: String,
+        required: [true, 'El rut es obligatorio']
     },
     correo: {
         type: String,
