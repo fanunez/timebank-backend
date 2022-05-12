@@ -30,7 +30,7 @@ const getUser = async( req = request, res = response ) => {
 }
 
 // Crear Usuario
-const postUser = async( req, res) => {
+const postUser = async( req = request, res = response ) => {
 
     // const body = req.body;
     const { nombre, apellido, relacion, edad, telefono, rut, correo, contraseña, tipoUsuario, state } = req.body;
