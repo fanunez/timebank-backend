@@ -2,7 +2,7 @@
 const { request, response } = require('express');
 //const bcryptjs = require('bcryptjs');
 
-const community_user = require('../models/userComunidad');
+const community_user = require('../models/community_user');
 
 
 
