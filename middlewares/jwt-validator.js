@@ -1,7 +1,7 @@
 const { request, response } = require('express');
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/userComunidad');
+const User = require('../models/community_user');
 
 // JWT se envia desde los headers
 const validateJWT = async( req = request, res = response, next ) => {
