@@ -4,10 +4,9 @@ const { response, request } = require('express');
 const service = require('../models/service');
 
 // Buscador de servicio
-const buscador = async( req , res = response ) => {
+const buscador = async( req = request , res = response ) => {
 
-    const { titulo } = req.body;
-
+    const { titulo } = req.query;
     if(titulo){
         const servicios = await service.find({titulo:{$regex:'.*'+titulo+'.*',$options:"i"}});
         res.json( servicios );
