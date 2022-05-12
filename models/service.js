@@ -4,7 +4,7 @@ const UserSchema = Schema({
 
     titulo: {
         type: String,
-        required: [true, 'El nombre es obligatorio'] 
+        required: [true, 'El titulo es obligatorio'] 
     },
     id_categoria: {
         type: Schema.Types.ObjectId,
@@ -22,7 +22,9 @@ const UserSchema = Schema({
 })
 
 UserSchema.methods.toJSON = function() {
-    const { __v, _id, ...user } = this.toObject();
+    const { __v, _id, ...service } = this.toObject();
     service.uid = _id;
     return service;
 }
+
+module.exports = model('service', UserSchema);
