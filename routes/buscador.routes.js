@@ -5,6 +5,6 @@ const { buscador } = require('../controllers/buscador.controllers')
 
 const router = Router();
 
-router.post('/',buscador);
+router.get('/',buscador);
 
 module.exports = router;
