@@ -1,5 +1,14 @@
 // Obtain Router from express
 const { Router } = require('express');
+const { check } = require('express-validator');
+// Middlewares
+const { fieldValidator,
+        validateRUT
+} = require('../middlewares');
+// Helpers
+const { emailValidator,
+        existUserById
+} = require('../helpers/db-validators');
 // Import controllers
 const { getUser,
         postUser,
@@ -13,9 +22,26 @@ const router = Router();
 // Defining routes for User 
 router.get('/', getUser );
 
-router.post('/', postUser );
+router.post('/', [
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('surname', 'El apellido es obligatorio').not().isEmpty(),
+    check('relation').isIn(['Estudio', 'Trabajo', 'Vivo']),
+    check('age').toFloat().isNumeric(),
+    check('phone').toFloat().isNumeric(),
+    check('rut').custom( validateRUT ),
+    check('email', 'El correo no es válido').isEmail(),
+    check('email').custom( emailValidator ),
+    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15}),
+    check('type_user').isIn(['Blue', 'Orange']),
+    check('state').isBoolean(),
+    fieldValidator
+],postUser );
 
-router.put('/', putUser );
+router.put('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+],putUser );
 
 router.delete('/', deleteUser );
  
