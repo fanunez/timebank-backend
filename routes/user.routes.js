@@ -27,7 +27,7 @@ router.post('/', [
     check('surname', 'El apellido es obligatorio').not().isEmpty(),
     check('relation').isIn(['Estudio', 'Trabajo', 'Vivo']),
     check('age').toFloat().isNumeric(),
-    check('direction').not().isEmpty(),
+    check('address').not().isEmpty(),
     check('phone').toFloat().isNumeric(),
     check('rut').custom( validateRUT ),
     check('email', 'El correo no es válido').isEmail(),

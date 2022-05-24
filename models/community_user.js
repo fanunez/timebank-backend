@@ -2,23 +2,27 @@ const {Schema, model} = require('mongoose');
 
 const UserSchema = Schema({
 
-    nombre: {
+    name: {
         type: String,
         required: [true, 'El nombre es obligatorio'] 
     },
-    apellido: {
+    surname: {
         type: String,
         required: [true, 'El apellido es obligatorio']
     },
-    relacion: {
+    relation: {
         type: String,
         required: [true, 'La relacion es obligatoria']
     },
-    edad: {
+    age: {
         type: Number,
         required: [true, 'La edad es obligatorio']
     },
-    telefono: {
+    address: {
+        type: String,
+        required: [true, 'La dirección es obligatoria']
+    },
+    phone: {
         type: String,
         required: [true, 'El telefono es obligatorio']
     },
@@ -26,15 +30,15 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'El rut es obligatorio']
     },
-    correo: {
+    email: {
         type: String,
         required: [true, 'El correo es obligatorio']
     },
-    contraseña: {
+    password: {
         type: String,
         required: [true, 'La contraseña es obligatorio']
     },
-    tipoUsuario: {
+    type_user: {
         type: String,
         required: [true, 'El tipo de usuario es obligatorio']
     },
