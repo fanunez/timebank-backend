@@ -1,5 +1,6 @@
 // npm packages
 const { response, request } = require('express');
+const bcryptjs = require('bcryptjs');
 // models 
 const community_user = require('../models/community_user');
 // our modules
@@ -8,11 +9,11 @@ const generateJWT = require('../helpers/jwt-generator');
 // Login de usuario
 const login = async( req, res = response ) => {
 
-    const { correo, contraseña } = req.body;
+    const { email, password } = req.body;
 
     try {
         // Verificar si el email existe
-        const user = await community_user.findOne({ correo });
+        const user = await community_user.findOne({ email });
         if( !user ) {
             return res.status(400).json({
                 msg: 'Email / Password no son correctos - email'
@@ -25,8 +26,8 @@ const login = async( req, res = response ) => {
             })
         }
         // Verificar contraseña
-        //const validPassword = bcryptjs.compareSync( password, user.password );
-        const user_pass = await community_user.findOne({ contraseña });
+        const validPassword = bcryptjs.compareSync( password, user.password );
+        const user_pass = await community_user.findOne({ validPassword });
         if( !user_pass ) {
             return res.status(400).json({
                 msg: 'Email / Password no son correctos - password'

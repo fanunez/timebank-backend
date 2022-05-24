@@ -1,10 +1,8 @@
 // npm packages
 const { request, response } = require('express');
-//const bcryptjs = require('bcryptjs');
-
+const bcryptjs = require('bcryptjs');
+// models
 const community_user = require('../models/community_user');
-
-
 
 // Mostrar Usuarios
 const getUser = async( req = request, res = response ) => {
@@ -35,8 +33,8 @@ const postUser = async( req = request, res = response ) => {
     const newUser = new community_user({ name, surname, relation, age, address, phone, rut, email, password, type_user, state });
 
     // Encriptar password
-    //const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
-    //userComunidad.contraseña = bcryptjs.hashSync( contraseña, salt ); // hashing
+    const salt = bcryptjs.genSaltSync(); // Número de vueltas para dificultar descifrado
+    newUser.password = bcryptjs.hashSync( password, salt ); // hashing
 
     // Guardar en db y esperar guardado
     await newUser.save();

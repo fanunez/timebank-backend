@@ -7,9 +7,9 @@ const { fieldValidator } = require('../middlewares/field-validator');
 const router = Router();
 
 router.post('/login', [
-    check('correo', 'El email es obligatorio').isEmail(),
-    check('contraseña', 'La contraseña es obligatoria').not().isEmpty(),
+    check('email', 'El email es obligatorio').isEmail(),
+    check('password', 'La contraseña es obligatoria').not().isEmpty(),
     fieldValidator
-],login);
+], login);
 
 module.exports = router;
