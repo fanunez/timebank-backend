@@ -1,4 +1,8 @@
-
+/*
+EXTRAIDO DE: 
+Andrés Fuenzalida - 2021
+https://github.com/afuenzalida
+*/
 
 const validateRUT = (rut) => {
 
