@@ -3,10 +3,11 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 // Middlewares
 const { fieldValidator,
-        validateJWT
+        validateRUT
 } = require('../middlewares');
 // Helpers
 const { emailValidator,
+        existUserById
 } = require('../helpers/db-validators');
 // Import controllers
 const { getUser,
@@ -24,19 +25,21 @@ router.get('/', getUser );
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('surname', 'El apellido es obligatorio').not().isEmpty(),
-    check('relation').isIn('1', '2', '3'),
-    check('age').isNumeric().isLength({ min: 8, max: 120 }),
-    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15}),
+    check('relation').isIn(['Estudio', 'Trabajo', 'Vivo']),
+    check('age').toFloat().isNumeric(),
+    check('phone').toFloat().isNumeric(),
+    check('rut').custom( validateRUT ),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom( emailValidator ),
-    check('state').isBoolean()
-
+    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15}),
+    check('type_user').isIn(['Blue', 'Orange']),
+    check('state').isBoolean(),
+    fieldValidator
 ],postUser );
-
-// name, surname, relation, age, phone, rut, email, password, type_user, state
 
 router.put('/:id', [
     check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
     fieldValidator
 ],putUser );
 

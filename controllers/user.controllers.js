@@ -20,8 +20,6 @@ const getUser = async( req = request, res = response ) => {
             .limit( Number(limit) )
     ]);
 
-    console.log(usersComunidad)
-
     res.json({
         total,
         usersComunidad

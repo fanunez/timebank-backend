@@ -1,12 +1,12 @@
-const { Role, User, Category, Product } = require('../models');
+const { User } = require('../models');
 
 // Verificacion de rol
-const roleValidator =  async( role = '' ) => {
-    const exist = await Role.findOne({ role });
-    if( !exist ) {
-        throw new Error(`El rol ${ role } no está registrado en la base de datos`);
-    }
-}
+// const roleValidator =  async( role = '' ) => {
+//     const exist = await Role.findOne({ role });
+//     if( !exist ) {
+//         throw new Error(`El rol ${ role } no está registrado en la base de datos`);
+//     }
+// }
 
 // Verificacion de correo 
 const emailValidator = async( email = '' ) => {
@@ -38,7 +38,7 @@ const collectionAllowed = ( collection = '', collections = [] ) => {
 
 
 module.exports = {
-    roleValidator,
+    // roleValidator,
     emailValidator,
     existUserById,
     collectionAllowed
