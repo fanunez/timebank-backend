@@ -10,6 +10,10 @@ const UserSchema = Schema({
         type: Number,
         required: [true, 'La solicitud es obligatoria']
     },
+    state: {
+        type: Boolean,
+        default: true
+    }
 })
 
 UserSchema.methods.toJSON = function() {

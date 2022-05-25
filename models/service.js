@@ -29,7 +29,11 @@ const UserSchema = Schema({
         required: [true, 'El usuario creador es obligatorio']
     },
     logros: {
-        type: Array
+        type: [Schema.Types.ObjectId]
+    },
+    state: {
+        type: Boolean,
+        default: true
     }
 })
 
