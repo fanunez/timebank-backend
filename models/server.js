@@ -13,7 +13,8 @@ class Server {
             authPath: '/api/auth',
             userPath: '/api/users',
             buscadorPath: '/api/buscador',
-            categoryPath: '/api/category'
+            categoryPath: '/api/category',
+            servicePath: '/api/service'
         }
         // Connect database
         this.connectDatabase();
@@ -43,6 +44,7 @@ class Server {
         this.app.use( this.paths.userPath, require('../routes/user.routes') );
         this.app.use( this.paths.buscadorPath, require('../routes/buscador.routes') );
         this.app.use( this.paths.categoryPath, require('../routes/category.routes') );
+        this.app.use( this.paths.servicePath, require('../routes/service.routes') );
 
     }
     // Listening port
