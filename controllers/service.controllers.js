@@ -1,5 +1,7 @@
 // npm packages
 const { request, response } = require('express');
+var mongoose = require('mongoose');
+
 // models
 const service = require('../models/service');
 
@@ -61,10 +63,28 @@ const deleteService = async(req, res) => {
 
 }
 
+// Buscar los servicios de un usuario
+const buscadorServicioUsuario = async( req = request , res = response ) => {
+    const { id } = req.body;
+    const objectId = mongoose.Types.ObjectId(id);
+    const serviciosUser = await service.find({id_usuario_creador: objectId});
+    res.json( serviciosUser );
+}
+
+// Buscar los servicios en base a una categoria
+const buscadorServicioCategoria = async( req = request , res = response ) => {
+    const { id_categoria } = req.body;
+    const objectId = mongoose.Types.ObjectId(id_categoria);
+    const serviciosUser = await service.find({id_categoria: objectId});
+    res.json( serviciosUser );
+}
+
 
 module.exports = {
     getService,
     postService,
     putService,
     deleteService,
+    buscadorServicioUsuario,
+    buscadorServicioCategoria
 }
