@@ -25,6 +25,20 @@ const getUser = async( req = request, res = response ) => {
 
 }
 
+// Obtener producto mediante id
+const getUserById = async( req, res = response ) => {
+
+    const { id } = req.params;
+
+    const user = await community_user.findById( id );
+        
+    res.json({
+        user 
+    });
+
+}
+
+
 // Crear Usuario
 const postUser = async( req = request, res = response ) => {
 
@@ -83,6 +97,7 @@ const deleteUser = async(req, res) => {
 
 module.exports = {
     getUser,
+    getUserById,
     postUser,
     putUser,
     deleteUser,
