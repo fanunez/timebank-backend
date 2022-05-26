@@ -31,11 +31,9 @@ const postUser = async( req = request, res = response ) => {
     // const body = req.body;
     const { name, surname, relation, age, address, phone, rut, email, password, type_user, state } = req.body;
     const newUser = new community_user({ name, surname, relation, age, address, phone, rut, email, password, type_user, state });
-
     // Encriptar password
     const salt = bcryptjs.genSaltSync(); // Número de vueltas para dificultar descifrado
     newUser.password = bcryptjs.hashSync( password, salt ); // hashing
-
     // Guardar en db y esperar guardado
     await newUser.save();
 

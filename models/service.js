@@ -15,10 +15,26 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'La descripcion es obligatoria']
     },
+    valor: {
+        type: Number,
+        required: [true, 'El valor es obligatorio']
+    },
     imagen: {
         type: String,
         required: [true, 'La imagen es requerida']
     },
+    id_usuario_creador: {
+        type: Schema.Types.ObjectId,
+        ref: 'community_user',
+        required: [true, 'El usuario creador es obligatorio']
+    },
+    logros: {
+        type: [Schema.Types.ObjectId]
+    },
+    state: {
+        type: Boolean,
+        default: true
+    }
 })
 
 UserSchema.methods.toJSON = function() {

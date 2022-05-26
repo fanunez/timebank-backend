@@ -42,6 +42,10 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'El tipo de usuario es obligatorio']
     },
+    balance: {
+        type: Number,
+        default: 0
+    },
     state: {
         type: Boolean,
         default: true
