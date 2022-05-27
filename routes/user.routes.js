@@ -11,6 +11,7 @@ const { emailValidator,
 } = require('../helpers/db-validators');
 // Import controllers
 const { getUser,
+        getUserById,
         postUser,
         putUser,
         deleteUser 
@@ -21,6 +22,8 @@ const router = Router();
 
 // Defining routes for User 
 router.get('/', getUser );
+
+router.get('/:id', getUserById );
 
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
