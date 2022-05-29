@@ -23,7 +23,11 @@ const router = Router();
 // Defining routes for User 
 router.get('/', getUser );
 
-router.get('/:id', getUserById );
+router.get('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], getUserById );
 
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
