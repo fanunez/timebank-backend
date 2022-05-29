@@ -1,21 +1,21 @@
 // npm packages
 const { request, response } = require('express');
 // models
-const category = require('../models/category');
+const { Category } = require('../models');
 
 // Mostrar Categorias
 const getCategory = async( req = request, res = response ) => {
 
     const query = { state: true};
 
-    const [ total, categorys ] = await Promise.all([
-        category.countDocuments( query ),
-        category.find( query )
+    const [ total, categories ] = await Promise.all([
+        Category.countDocuments( query ),
+        Category.find( query )
     ]);
 
     res.json({
         total,
-        categorys
+        categories
     });
 
 }
@@ -24,8 +24,8 @@ const getCategory = async( req = request, res = response ) => {
 const postCategory = async( req = request, res = response ) => {
 
     // const body = req.body;
-    const { name, request} = req.body;
-    const newCategory = new category({ name, request});
+    const { name, petition } = req.body;
+    const newCategory = new Category({ name, petition });
 
     // Guardar en db y esperar guardado
     await newCategory.save();
@@ -39,10 +39,10 @@ const buscador = async( req = request , res = response ) => {
 
     const { name } = req.body;
     if(name){
-        const categories = await category.find({name:{$regex:'.*'+name+'.*',$options:"i"}});
+        const categories = await Category.find({name:{$regex:'.*'+name+'.*',$options:"i"}});
         res.json( categories );
     }else{
-        const categories = await category.find({})
+        const categories = await Category.find({})
         res.json( categories );
     }
 

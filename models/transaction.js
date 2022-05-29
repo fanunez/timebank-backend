@@ -37,4 +37,4 @@ UserSchema.methods.toJSON = function() {
     return transaction;
 }
 
-module.exports = model('transaction', UserSchema);
+module.exports = model('Transaction', UserSchema);

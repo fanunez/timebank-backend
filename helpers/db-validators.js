@@ -1,12 +1,5 @@
-const { User } = require('../models');
-
-// Verificacion de rol
-// const roleValidator =  async( role = '' ) => {
-//     const exist = await Role.findOne({ role });
-//     if( !exist ) {
-//         throw new Error(`El rol ${ role } no está registrado en la base de datos`);
-//     }
-// }
+// Import models
+const { User, Category, Achievement, Service } = require('../models');
 
 // Verificacion de correo 
 const emailValidator = async( email = '' ) => {
@@ -24,6 +17,14 @@ const existUserById = async( id ) => {
     }
 }
 
+// Verificacion de existencia de id de categoria
+const existCategoryById = async( id ) => {
+    const exist = await Category.findById( id );
+    if( !exist ) {
+        throw new Error(`No existe categoria con id ${ id }`);
+    }
+}
+
 // Verificacion de colecciones
 const collectionAllowed = ( collection = '', collections = [] ) => {
     
@@ -35,11 +36,29 @@ const collectionAllowed = ( collection = '', collections = [] ) => {
     return true;
 }
 
+// Verificar 
+const existAchievementById = async( id ) => {
+    const exist = await Achievement.findById( id );
+    if( !exist ) {
+        throw new Error(`No existe logro con id ${ id }`);
+    }
+}
+
+// Verificacion de existencia de id de servicio
+const existServiceById = async( id ) => {
+    const exist = await Service.findById( id );
+    if( !exist ) {
+        throw new Error(`No existe servicio con id ${ id }`);
+    }
+}
 
 
 module.exports = {
     // roleValidator,
     emailValidator,
     existUserById,
-    collectionAllowed
+    collectionAllowed,
+    existCategoryById,
+    existAchievementById,
+    existServiceById
 }

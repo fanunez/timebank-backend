@@ -6,9 +6,9 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'El nombre es obligatorio'] 
     },
-    petition: {
-        type: Number,
-        required: [true, 'La solicitud es obligatoria']
+    description: {
+        type: String,
+        required: [true, 'La descripción es obligatoria'] 
     },
     state: {
         type: Boolean,
@@ -18,8 +18,8 @@ const UserSchema = Schema({
 
 UserSchema.methods.toJSON = function() {
     const { __v, _id, ...category } = this.toObject();
-    category.uid = _id;
-    return category;
+    achievements.uid = _id;
+    return achievements;
 }
 
-module.exports = model('Category', UserSchema);
+module.exports = model('Achievement', UserSchema);

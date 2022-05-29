@@ -2,33 +2,33 @@ const {Schema, model} = require('mongoose');
 
 const UserSchema = Schema({
 
-    titulo: {
+    title: {
         type: String,
         required: [true, 'El titulo es obligatorio'] 
     },
-    id_categoria: {
+    id_category: {
         type: Schema.Types.ObjectId,
         ref: 'category',
         required: [true, 'La categoria es obligatoria']
     },
-    descripcion: {
+    description: {
         type: String,
         required: [true, 'La descripcion es obligatoria']
     },
-    valor: {
+    value: {
         type: Number,
         required: [true, 'El valor es obligatorio']
     },
-    imagen: {
+    image: {
         type: String,
         required: [true, 'La imagen es requerida']
     },
-    id_usuario_creador: {
+    id_owner: {
         type: Schema.Types.ObjectId,
         ref: 'community_user',
         required: [true, 'El usuario creador es obligatorio']
     },
-    logros: {
+    achievements: {
         type: [Schema.Types.ObjectId]
     },
     state: {
@@ -43,4 +43,4 @@ UserSchema.methods.toJSON = function() {
     return service;
 }
 
-module.exports = model('service', UserSchema);
+module.exports = model('Service', UserSchema);
