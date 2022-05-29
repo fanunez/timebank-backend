@@ -12,9 +12,9 @@ class Server {
         this.paths = {
             authPath: '/api/auth',
             userPath: '/api/users',
-            buscadorPath: '/api/buscador',
             categoryPath: '/api/category',
-            servicePath: '/api/service'
+            servicePath: '/api/service',
+            transactionPath: '/api/transaction'
         }
         // Connect database
         this.connectDatabase();
@@ -42,10 +42,9 @@ class Server {
     routes() {
         this.app.use( this.paths.authPath, require('../routes/auth.routes') );
         this.app.use( this.paths.userPath, require('../routes/user.routes') );
-        this.app.use( this.paths.buscadorPath, require('../routes/buscador.routes') );
         this.app.use( this.paths.categoryPath, require('../routes/category.routes') );
         this.app.use( this.paths.servicePath, require('../routes/service.routes') );
-
+        this.app.use( this.paths.transactionPath, require('../routes/transaction.routes') );
     }
     // Listening port
     listen() {

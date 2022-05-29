@@ -79,6 +79,20 @@ const buscadorServicioCategoria = async( req = request , res = response ) => {
     res.json( serviciosUser );
 }
 
+// Buscador de servicio por titulo
+const buscadorTitulo = async( req = request , res = response ) => {
+
+    const { titulo } = req.body;
+    if(titulo){
+        const servicios = await service.find({titulo:{$regex:'.*'+titulo+'.*',$options:"i"}});
+        res.json( servicios );
+    }else{
+        const servicios = await service.find({})
+        res.json( servicios );
+    }
+
+}
+
 
 module.exports = {
     getService,
@@ -86,5 +100,6 @@ module.exports = {
     putService,
     deleteService,
     buscadorServicioUsuario,
-    buscadorServicioCategoria
+    buscadorServicioCategoria,
+    buscadorTitulo
 }
