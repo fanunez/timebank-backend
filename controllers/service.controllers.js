@@ -59,7 +59,7 @@ const deleteService = async(req, res) => {
 // Buscar los servicios de un usuario
 const buscadorServicioUsuario = async( req = request , res = response ) => {
     const { id } = req.params;
-    const objectId = mongoose.Types.ObjectId(id);
+    const objectId = mongoose.Types.ObjectId( id );
     const serviciosUser = await Service.find({id_owner: objectId});
     res.json( serviciosUser );
 }
@@ -67,7 +67,7 @@ const buscadorServicioUsuario = async( req = request , res = response ) => {
 // Buscar los servicios en base a una categoria
 const buscadorServicioCategoria = async( req = request , res = response ) => {
     const { id_category } = req.params;
-    const objectId = mongoose.Types.ObjectId(id_category);
+    const objectId = mongoose.Types.ObjectId( id_category );
     const serviciosUser = await Service.find({id_category: objectId});
     res.json( serviciosUser );
 }
