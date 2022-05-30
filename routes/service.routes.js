@@ -46,8 +46,6 @@ router.post('/', [
     check('id_owner').custom( existUserById ),
     // Check achievements param
     check('achievements').not().isEmpty(),
-    check('achievements.*', 'No es un ID válido').isMongoId(),
-    check('achievements.*').custom( existAchievementById ),
     // Check status param
     check('state').exists().isBoolean(),
     fieldValidator
@@ -72,7 +70,7 @@ router.get('/buscarUsuario/:id', [
 ], buscadorServicioUsuario);
 
 // Search services by CATEGORY
-router.get('/buscarCategoria/:id', [
+router.get('/buscarCategoria/:id_category', [
     check('id_category', 'No es un ID válido').isMongoId(),
     check('id_category').custom( existUserById ),
     fieldValidator
