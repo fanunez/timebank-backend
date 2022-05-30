@@ -1,7 +1,8 @@
+// npm modules
 const { request, response } = require('express');
 const jwt = require('jsonwebtoken');
-
-const User = require('../models/community_user');
+// Model
+const { User } = require('../models/');
 
 // JWT se envia desde los headers
 const validateJWT = async( req = request, res = response, next ) => {
