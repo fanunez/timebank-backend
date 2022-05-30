@@ -65,21 +65,21 @@ router.put('/:id', [
 router.delete('/:id', deleteService);
 
 // Search services by USER 
-router.get('/buscarUsuario', [
+router.get('/buscarUsuario/:id', [
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),
     fieldValidator
 ], buscadorServicioUsuario);
 
 // Search services by CATEGORY
-router.get('/buscarCategoria', [
+router.get('/buscarCategoria/:id', [
     check('id_category', 'No es un ID válido').isMongoId(),
     check('id_category').custom( existUserById ),
     fieldValidator
 ], buscadorServicioCategoria);
 
 // Search services by TITLE
-router.get('/buscarTitulo', [
+router.post('/buscarTitulo', [
     check('title', 'El título es necesario').not().isEmpty(),
     fieldValidator
 ], buscadorTitulo);
