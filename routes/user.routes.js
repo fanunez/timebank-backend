@@ -3,7 +3,8 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 // Middlewares
 const { fieldValidator,
-        validateRUT
+        validateRUT,
+        validateJWT
 } = require('../middlewares');
 // Helpers
 const { emailValidator,
@@ -40,7 +41,7 @@ router.post('/', [
     check('rut').custom( validateRUT ),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom( emailValidator ),
-    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15}),
+    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15 }),
     check('type_user').isIn(['Blue', 'Orange']),
     check('state').not().isEmpty(),
     check('state').isBoolean(),
@@ -55,6 +56,11 @@ router.put('/:id', [
 ],putUser );
 
 // Delete user
-router.delete('/', deleteUser );
+router.delete('/:id', [
+    validateJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], deleteUser );
  
 module.exports = router;

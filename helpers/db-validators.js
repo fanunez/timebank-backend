@@ -53,6 +53,7 @@ const existServiceById = async( id ) => {
 }
 
 
+
 module.exports = {
     // roleValidator,
     emailValidator,
@@ -60,5 +61,5 @@ module.exports = {
     collectionAllowed,
     existCategoryById,
     existAchievementById,
-    existServiceById
+    existServiceById,
 }
