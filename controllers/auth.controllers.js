@@ -2,9 +2,18 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 // models 
-const community_user = require('../models/community_user');
+const { User } = require('../models');
 // our modules
 const generateJWT = require('../helpers/jwt-generator');
+
+
+// Get uid from user logged ( with a valid JWT )
+const getUserLogged = ( req = request, res = response ) => {
+    
+    const userAuth = req.userAuth;
+    res.json( userAuth );
+
+}
 
 // Login de usuario
 const login = async( req, res = response ) => {
@@ -13,7 +22,7 @@ const login = async( req, res = response ) => {
 
     try {
         // Verificar si el email existe
-        const user = await community_user.findOne({ email });
+        const user = await User.findOne({ email });
         if( !user ) {
             return res.status(400).json({
                 msg: 'Email / Password no son correctos - email'
@@ -27,7 +36,7 @@ const login = async( req, res = response ) => {
         }
         // Verificar contraseña
         const validPassword = bcryptjs.compareSync( password, user.password );
-        const user_pass = await community_user.findOne({ validPassword });
+        const user_pass = await User.findOne({ validPassword });
         if( !user_pass ) {
             return res.status(400).json({
                 msg: 'Email / Password no son correctos - password'
@@ -52,5 +61,6 @@ const login = async( req, res = response ) => {
 }
 
 module.exports = {
-    login
+    getUserLogged,
+    login,
 }

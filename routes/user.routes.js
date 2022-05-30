@@ -3,7 +3,8 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 // Middlewares
 const { fieldValidator,
-        validateRUT
+        validateRUT,
+        validateJWT
 } = require('../middlewares');
 // Helpers
 const { emailValidator,
@@ -55,6 +56,11 @@ router.put('/:id', [
 ],putUser );
 
 // Delete user
-router.delete('/', deleteUser );
+router.delete('/:id', [
+    validateJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], deleteUser );
  
 module.exports = router;
