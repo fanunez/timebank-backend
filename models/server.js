@@ -1,6 +1,7 @@
 // npm packages
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 const { mongoConnection } = require('../database/config');
 class Server {
@@ -14,7 +15,8 @@ class Server {
             userPath: '/api/users',
             categoryPath: '/api/category',
             servicePath: '/api/service',
-            transactionPath: '/api/transaction'
+            transactionPath: '/api/transaction',
+            uploadPath: '/api/uploads'
         }
         // Connect database
         this.connectDatabase();
@@ -36,6 +38,11 @@ class Server {
         this.app.use( express.json() );
         // Public directory
         this.app.use( express.static('public') );
+        // FileUpload options
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
 
     }
     // Defining routes
@@ -45,6 +52,7 @@ class Server {
         this.app.use( this.paths.categoryPath, require('../routes/category.routes') );
         this.app.use( this.paths.servicePath, require('../routes/service.routes') );
         this.app.use( this.paths.transactionPath, require('../routes/transaction.routes') );
+        this.app.use( this.paths.uploadPath, require('../routes/upload-images.routes') );
     }
     // Listening port
     listen() {

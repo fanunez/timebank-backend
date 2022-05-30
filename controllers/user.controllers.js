@@ -3,7 +3,6 @@ const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 // models
 const community_user = require('../models/community_user');
-const res = require('express/lib/response');
 
 // Mostrar Usuarios
 const getUser = async( req = request, res = response ) => {
@@ -48,13 +47,12 @@ const postUser = async( req = request, res = response ) => {
     newUser.password = bcryptjs.hashSync( password, salt ); // hashing
     // Guardar en db y esperar guardado
     await newUser.save();
-
     res.json( newUser );
 
 }
 
 // Actualizar Usuario
-const putUser = async( req, res) => {
+const putUser = async( req, res ) => {
 
     const { id } = req.params;
     const { _id, password, email, ...remainder } = req.body;
@@ -64,18 +62,15 @@ const putUser = async( req, res) => {
        const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
        remainder.password = bcryptjs.hashSync( password, salt ); // hashing
     }
-
     const newUser = await community_user.findByIdAndUpdate( id, remainder );
-
     res.json( newUser );
 
 }
 
 // Eliminar Usuario
-const deleteUser = async(req, res) => {
+const deleteUser = async( req, res ) => {
 
     const { id } = req.params;
-    
     const user = await community_user.findByIdAndUpdate( id, { state: false } );
     const userAuth = req.userAuth;
     
