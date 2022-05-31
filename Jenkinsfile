@@ -12,13 +12,10 @@ pipeline {
             }
         }
         stage ( 'test' ) {
-            // steps {
-            //     dir( 'build_node' ) {
-            //         sh 'npm test'
-            //     }
-            // }
             steps {
-                echo 'build'
+                dir( 'build_node' ) {
+                    sh 'npm test'
+                }
             }
         }
         stage('SonarQube analysis') {
