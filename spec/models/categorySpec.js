@@ -1,29 +1,40 @@
 // define npm modules
 const { response } = require('express');
-// import models
+const axios = require('axios').default;
 const { Category } = require('../../models');
+// import models
 
 // base route
 const base_url = "http://164.92.96.206:8081/api/category"
 
 describe("Category Tests", function () {
     // Category Accepted
-    it("Category: Accepted", () => {
-        // create data
-        const data = {
+    it("Category: Post Category", (done) => {
+        
+        let uid;
+
+        axios.post(base_url, {
             "name": "test", 
             "petition": 5,
-            "state": true
-        }
-        const category = new Category( data );  
+        })
+        .then(function (response) {
+            
+            uid = response.data.uid; 
+            // Testing
+            expect(response.data.name).toEqual("test");
+            expect(response.data.petition).toEqual(5);
+            expect(response.data.state).toEqual(true);
 
-        const categoryJson = {
-            "name": category.name,
-            "petition": category.petition,
-            "state": category.state
-        }
+        })
+        .catch(function (error) {
+            console.info(error);
+        });
 
-        expect( categoryJson ).toEqual( data );
+        // Delete from database
+        Category.findByIdAndDelete( uid );
+
+        done();
+          
     })
 
 })
