@@ -19,9 +19,8 @@ const UserSchema = Schema({
         type: Number,
         required: [true, 'El valor es obligatorio']
     },
-    image: {
+    img: {
         type: String,
-        required: [true, 'La imagen es requerida']
     },
     id_owner: {
         type: Schema.Types.ObjectId,
