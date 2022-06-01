@@ -23,5 +23,4 @@ router.put('/:collection/:id', [
     fieldValidator
 ], updateImageCloudinary );
 
-
 module.exports = router;

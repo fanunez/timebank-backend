@@ -39,7 +39,7 @@ class Server {
         // Public directory
         this.app.use( express.static('public') );
         // FileUpload options
-        this.app.use(fileUpload({
+        this.app.use( fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/'
         }));
