@@ -4,14 +4,14 @@ pipeline {
 	    scannerHome = tool 'SonarScanner 3.1.0';
 	}
     stages {
-        stage ( 'install' ) {
+        stage ( 'Install' ) {
             steps {
                 dir( 'build_node' ) {
                     sh 'npm install'
                 }
             }
         }
-        stage ( 'test' ) {
+        stage ( 'Jasmine Tests' ) {
             steps {
                 dir( 'build_node' ) {
                     sh 'npm test'
@@ -28,19 +28,14 @@ pipeline {
 				}
 			}
   		}
-        stage ( 'docker Build' ) {
+        stage ( 'Docker Build' ) {
             steps {
                 echo 'build'
             }
         }
-        stage ( 'docker push' ) {
+        stage ( 'Docker Push' ) {
             steps {
                 echo 'push'
-            }
-        }
-        stage('End') {
-            steps {
-                echo "Deploying Backend"
             }
         }
     }
