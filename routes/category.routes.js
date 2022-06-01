@@ -5,7 +5,8 @@ const { check } = require('express-validator');
 const { fieldValidator,
 } = require('../middlewares');
 // Controllers
-const { getCategory, 
+const { getCategory,
+        getCategoryById, 
         postCategory, 
         buscador 
 } = require('../controllers/category.controllers')
@@ -14,7 +15,9 @@ const router = Router();
 
 router.get('/', getCategory);
 
-router.get('/categoryBuscador', buscador);
+router.get('/:id', getCategoryById);
+
+router.get('/categoryBuscador/:name', buscador);
 
 router.post('/', [
     check('name', 'El nombre de cateogria es obligatorio').not().isEmpty(),

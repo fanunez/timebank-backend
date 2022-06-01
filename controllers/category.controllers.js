@@ -20,6 +20,17 @@ const getCategory = async( req = request, res = response ) => {
 
 }
 
+// Obtener categoria mediante id
+const getCategoryById = async( req, res = response ) => {
+
+    const { id } = req.params;
+    const categoryaux = await Category.findById( id );
+    res.json({
+        categoryaux 
+    });
+
+}
+
 // Crear Categoria
 const postCategory = async( req = request, res = response ) => {
 
@@ -37,7 +48,7 @@ const postCategory = async( req = request, res = response ) => {
 // Buscador de categoria
 const buscador = async( req = request , res = response ) => {
 
-    const { name } = req.body;
+    const { name } = req.params;
     if(name){
         const categories = await Category.find({name:{$regex:'.*'+name+'.*',$options:"i"}});
         res.json( categories );
@@ -50,6 +61,7 @@ const buscador = async( req = request , res = response ) => {
 
 module.exports = {
     getCategory,
+    getCategoryById,
     postCategory,
     buscador,
 }
