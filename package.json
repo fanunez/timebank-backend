@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "sonarqube": "sonar-scanner"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "mongoose": "^6.3.3"
   },
   "devDependencies": {
+    "jasmine": "^4.1.0",
     "sonar-scanner": "^3.1.0"
   }
 }
