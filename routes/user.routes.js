@@ -37,7 +37,7 @@ router.post('/', [
     check('relation').isIn(['Estudio', 'Trabajo', 'Vivo']),
     check('age').toFloat().isNumeric(),
     check('address').not().isEmpty(),
-    check('phone').toFloat().isNumeric(),
+    check('phone').exists(),
     check('rut').custom( validateRUT ),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom( emailValidator ),
