@@ -35,11 +35,6 @@ router.post('/', [
     check('description').not().isEmpty(),
     // Check value param
     check('value').exists().isNumeric(),
-    // Check image param
-    check('image').not().isEmpty(),
-
-    // Agregar validador de ruta de imagen 
-
     // Check id_owner
     check('id_owner').not().isEmpty(),
     check('id_owner', 'No es un ID válido').isMongoId(),
@@ -60,7 +55,13 @@ router.put('/:id', [
 
 // Delete service
 // in later versions add a validator so that only the ADMINISTRATOR USER can run this operation
-router.delete('/:id', deleteService);
+router.delete('/:id', [
+    validateJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    // check('ROL').custom( isAdmin ) or check('ROL').isIn(['Admin'])
+    fieldValidator
+], deleteService);
 
 // Search services by USER 
 router.get('/buscarUsuario/:id', [

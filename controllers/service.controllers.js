@@ -24,8 +24,8 @@ const getService = async( req = request, res = response ) => {
 
 // Crear Servicios
 const postService = async( req = request, res = response ) => {
-    const { title, id_category, description, value, image, id_owner, achievements, state } = req.body;
-    const newService = new Service({ title, id_category, description, value, image, id_owner, achievements, state });
+    const { title, id_category, description, value, id_owner, achievements, state } = req.body;
+    const newService = new Service({ title, id_category, description, value, id_owner, achievements, state });
     // Guardar en db y esperar guardado
     await newService.save();
 
