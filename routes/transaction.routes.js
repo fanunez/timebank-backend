@@ -50,7 +50,12 @@ router.put('/:id', [
 ], putTransaction);
 
 // Delete transaction
-router.delete('/:id', deleteTransaction);
+router.delete('/:id', [
+    validateJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], deleteTransaction);
 
 // Get transaction by OWNER
 router.get('/own_request/:id', [
