@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 // Middlewares
 const { fieldValidator,
+        validateJWT
 } = require('../middlewares');
 // Helpers
 const { existUserById,
