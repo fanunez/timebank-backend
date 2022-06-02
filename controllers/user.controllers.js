@@ -7,7 +7,7 @@ const community_user = require('../models/community_user');
 // Mostrar Usuarios
 const getUser = async( req = request, res = response ) => {
     
-    const { limit = 5, since = 0 } = req.query;
+    const { since = 0 } = req.query;
 
     const query = { state: true};
 
@@ -15,7 +15,6 @@ const getUser = async( req = request, res = response ) => {
         community_user.countDocuments( query ),
         community_user.find( query )
             .skip( Number(since) )
-            .limit( Number(limit) )
     ]);
 
     res.json({
