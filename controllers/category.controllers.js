@@ -24,10 +24,10 @@ const getCategory = async( req = request, res = response ) => {
 const getCategoryById = async( req, res = response ) => {
 
     const { id } = req.params;
-    const categoryaux = await Category.findById( id );
-    res.json({
-        categoryaux 
-    });
+    const category = await Category.findById( id );
+    res.json(
+        category 
+    );
 
 }
 
