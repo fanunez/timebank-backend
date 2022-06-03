@@ -2,7 +2,7 @@
 const User = require('./community_user');
 const Service = require('./service');
 const Category = require('./category');
-const Transaccion = require('./transaction')
+const Transaction = require('./transaction')
 const Achievement = require('./achievement')
 
 module.exports = {
@@ -10,6 +10,6 @@ module.exports = {
     // Role,
     User,   
     Category,
-    Transaccion, 
+    Transaction, 
     Achievement
 }

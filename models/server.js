@@ -16,7 +16,8 @@ class Server {
             categoryPath: '/api/category',
             servicePath: '/api/service',
             transactionPath: '/api/transaction',
-            uploadPath: '/api/uploads'
+            uploadPath: '/api/uploads',
+            achievementPath: '/api/achievement'
         }
         // Connect database
         this.connectDatabase();
@@ -53,6 +54,7 @@ class Server {
         this.app.use( this.paths.servicePath, require('../routes/service.routes') );
         this.app.use( this.paths.transactionPath, require('../routes/transaction.routes') );
         this.app.use( this.paths.uploadPath, require('../routes/upload-images.routes') );
+        this.app.use( this.paths.achievementPath, require('../routes/achievement.routes') );
     }
     // Listening port
     listen() {

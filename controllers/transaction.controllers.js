@@ -61,7 +61,7 @@ const deleteTransaction = async(req, res) => {
 const ownRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
-    const transactions = await Transaction.find({id_user_aplicant: objectId, state_request: 1});
+    const transactions = await Transaction.find({id_user_aplicant: objectId, state_request: 1, state: true});
     res.json( transactions );
 }
 
@@ -69,7 +69,7 @@ const ownRequestTransaction = async(req, res) => {
 const ServiceRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
-    const serviceTransactions = await Transaction.find({id_user_owner: objectId, state_request: 1});
+    const serviceTransactions = await Transaction.find({id_user_owner: objectId, state_request: 1, state: true});
     res.json( serviceTransactions );
 }
 

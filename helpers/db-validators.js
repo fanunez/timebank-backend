@@ -1,5 +1,5 @@
 // Import models
-const { User, Category, Achievement, Service } = require('../models');
+const { User, Category, Achievement, Service, Transaction } = require('../models');
 
 // Verificacion de correo 
 const emailValidator = async( email = '' ) => {
@@ -52,6 +52,13 @@ const existServiceById = async( id ) => {
     }
 }
 
+// Verificacion de existencia de id de transaccion
+const existTransactionById = async( id ) => {
+    const exist = await Transaction.findById( id );
+    if( !exist ) {
+        throw new Error(`No existe servicio con id ${ id }`);
+    }
+}
 
 
 module.exports = {
@@ -62,4 +69,5 @@ module.exports = {
     existCategoryById,
     existAchievementById,
     existServiceById,
+    existTransactionById
 }

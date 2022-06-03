@@ -9,15 +9,24 @@ const { getCategory,
         getCategoryById, 
         postCategory, 
         buscador 
-} = require('../controllers/category.controllers')
+} = require('../controllers/category.controllers');
+const { existCategoryById } = require('../helpers/db-validators');
 
 const router = Router();
 
 router.get('/', getCategory);
 
-router.get('/:id', getCategoryById);
+router.get('/:id',[
+    check('id', 'El ID de cateogria es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existCategoryById ),
+    fieldValidator
+] , getCategoryById);
 
-router.get('/categoryBuscador/:name', buscador);
+router.get('/categoryBuscador/:name', [
+    check('name', 'El nombre a buscar es necesario').not().isEmpty(),
+    fieldValidator
+], buscador);
 
 router.post('/', [
     check('name', 'El nombre de cateogria es obligatorio').not().isEmpty(),
