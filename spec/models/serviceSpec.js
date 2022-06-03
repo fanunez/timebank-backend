@@ -8,8 +8,8 @@ const { mongoConnection } = require('../../database/config');
 require('dotenv').config()
 
 // base route
-//const base_url = "http://164.92.96.206:8081/api/service"
-const base_url = "http://localhost:8080/api/service"
+const base_url = "http://164.92.96.206:8081/api/service"
+// const base_url = "http://localhost:8080/api/service"
 
 let uid;
 
