@@ -50,7 +50,7 @@ const buscador = async( req = request , res = response ) => {
 
     const { name } = req.params;
     if(name){
-        const categories = await Category.find({name:{$regex:'.*'+name+'.*',$options:"i"}});
+        const categories = await Category.find({name:{$regex:'.*'+name+'.*',$options:"i"},state: true});
         res.json( categories );
     }else{
         const categories = await Category.find({})

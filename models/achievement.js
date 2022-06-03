@@ -17,9 +17,9 @@ const UserSchema = Schema({
 })
 
 UserSchema.methods.toJSON = function() {
-    const { __v, _id, ...category } = this.toObject();
-    achievements.uid = _id;
-    return achievements;
+    const { __v, _id, ...achievement } = this.toObject();
+    achievement.uid = _id;
+    return achievement;
 }
 
 module.exports = model('Achievement', UserSchema);
