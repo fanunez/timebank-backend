@@ -60,7 +60,7 @@ const deleteService = async(req, res) => {
 const buscadorServicioUsuario = async( req = request , res = response ) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId( id );
-    const serviciosUser = await Service.find({id_owner: objectId});
+    const serviciosUser = await Service.find({id_owner: objectId, state: true});
     res.json( serviciosUser );
 }
 
@@ -68,16 +68,16 @@ const buscadorServicioUsuario = async( req = request , res = response ) => {
 const buscadorServicioCategoria = async( req = request , res = response ) => {
     const { id_category } = req.params;
     const objectId = mongoose.Types.ObjectId( id_category );
-    const serviciosUser = await Service.find({id_category: objectId});
+    const serviciosUser = await Service.find({id_category: objectId, state: true});
     res.json( serviciosUser );
 }
 
 // Buscador de servicio por titulo
 const buscadorTitulo = async( req = request , res = response ) => {
 
-    const { title } = req.body;
+    const { title } = req.params;
     if(title){
-        const servicios = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}});
+        const servicios = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}, state: true});
         res.json( servicios );
     }else{
         const servicios = await Service.find({})
