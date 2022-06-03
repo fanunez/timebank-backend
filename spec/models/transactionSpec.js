@@ -15,9 +15,9 @@ let uid;
 
 describe("Transaction Tests", function () {
     
-    beforeAll(async () => {
-        await mongoConnection();
-    })
+    //beforeAll(async () => {
+    //    await mongoConnection();
+    //})
 
     afterAll(async () => {
         await Transaction.findByIdAndDelete(uid);

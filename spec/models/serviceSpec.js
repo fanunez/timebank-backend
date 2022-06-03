@@ -15,9 +15,9 @@ let uid;
 
 describe("Service Tests", function () {
     
-    beforeAll(async () => {
-        await mongoConnection();
-    })
+    //beforeAll(async () => {
+    //    await mongoConnection();
+    //})
 
     afterAll(async () => {
         await Service.findByIdAndDelete(uid);

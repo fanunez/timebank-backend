@@ -15,9 +15,9 @@ let uid;
 
 describe("Category Tests", function () {
     
-    beforeAll(async () => {
-        await mongoConnection();
-    })
+    //beforeAll(async () => {
+    //    await mongoConnection();
+    //})
 
     afterAll(async () => {
         await Category.findByIdAndDelete(uid);
