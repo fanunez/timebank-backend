@@ -47,7 +47,8 @@ const UserSchema = Schema({
         default: 0
     },
     img: {
-        type: String
+        type: String,
+        default: process.env.DEFAULT_USER_IMAGE
     },
     state: {
         type: Boolean,
