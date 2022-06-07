@@ -2,18 +2,18 @@
 const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 // models
-const community_user = require('../models/community_user');
+const { User } = require('../models');
 
 // Mostrar Usuarios
 const getUser = async( req = request, res = response ) => {
     
     const { since = 0 } = req.query;
 
-    const query = { state: true};
+    const query = { state: true };
 
     const [ total, usersComunidad ] = await Promise.all([
-        community_user.countDocuments( query ),
-        community_user.find( query )
+        User.countDocuments( query ),
+        User.find( query )
             .skip( Number(since) )
     ]);
 
@@ -28,7 +28,7 @@ const getUser = async( req = request, res = response ) => {
 const getUserById = async( req, res = response ) => {
 
     const { id } = req.params;
-    const user = await community_user.findById( id );
+    const user = await User.findById( id );
     res.json({
         user 
     });
@@ -40,7 +40,7 @@ const postUser = async( req = request, res = response ) => {
 
     // const body = req.body;
     const { name, surname, relation, age, address, phone, rut, email, password, type_user, state } = req.body;
-    const newUser = new community_user({ name, surname, relation, age, address, phone, rut, email, password, type_user, state });
+    const newUser = new User({ name, surname, relation, age, address, phone, rut, email, password, type_user, state });
     // Encriptar password
     const salt = bcryptjs.genSaltSync(); // Número de vueltas para dificultar descifrado
     newUser.password = bcryptjs.hashSync( password, salt ); // hashing
@@ -56,12 +56,14 @@ const putUser = async( req, res ) => {
     const { id } = req.params;
     const { _id, password, email, ...remainder } = req.body;
 
+    console.log( remainder )
+
     // Encriptar password
     if( password ) {
        const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
        remainder.password = bcryptjs.hashSync( password, salt ); // hashing
     }
-    const newUser = await community_user.findByIdAndUpdate( id, remainder );
+    const newUser = await User.findByIdAndUpdate( id, remainder );
     res.json( newUser );
 
 }
@@ -70,7 +72,7 @@ const putUser = async( req, res ) => {
 const deleteUser = async( req, res ) => {
 
     const { id } = req.params;
-    const user = await community_user.findByIdAndUpdate( id, { state: false } );
+    const user = await User.findByIdAndUpdate( id, { state: false } );
     const userAuth = req.userAuth;
     
     res.json({

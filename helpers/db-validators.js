@@ -62,7 +62,6 @@ const existTransactionById = async( id ) => {
 
 
 module.exports = {
-    // roleValidator,
     emailValidator,
     existUserById,
     collectionAllowed,

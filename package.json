@@ -2,10 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jasmine",
-    "sonarqube": "sonar-scanner"
+    "test": "mocha \"./*/*.spec.js\" -t 10000",
+    "sonarqube": "sonar-scanner",
+    "coverage": "nyc --reporter=html mocha \"./*/*.spec.js\" -t 10000"
   },
   "author": "",
   "license": "ISC",
@@ -19,10 +20,15 @@
     "express-fileupload": "^1.4.0",
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.3"
+    "mocha": "^10.0.0",
+    "mockery": "^2.1.0",
+    "mongoose": "^6.3.3",
+    "nyc": "^15.1.0",
+    "sinon": "^14.0.0"
   },
   "devDependencies": {
-    "jasmine": "^4.1.0",
+    "chai": "^4.3.6",
+    "jest": "^28.1.0",
     "sonar-scanner": "^3.1.0"
   }
 }
