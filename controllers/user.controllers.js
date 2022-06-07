@@ -39,8 +39,8 @@ const getUserById = async( req, res = response ) => {
 const postUser = async( req = request, res = response ) => {
 
     // const body = req.body;
-    const { name, surname, relation, age, address, phone, rut, email, password, type_user, state } = req.body;
-    const newUser = new User({ name, surname, relation, age, address, phone, rut, email, password, type_user, state });
+    const { name, surname, relation, age, address, phone, rut, email, description, password, type_user, state } = req.body;
+    const newUser = new User({ name, surname, relation, age, address, phone, rut, email, description, password, type_user, state });
     // Encriptar password
     const salt = bcryptjs.genSaltSync(); // Número de vueltas para dificultar descifrado
     newUser.password = bcryptjs.hashSync( password, salt ); // hashing

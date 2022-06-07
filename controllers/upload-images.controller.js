@@ -36,7 +36,7 @@ const updateImageCloudinary = async( req, res = response ) => {
             return res.status(500).json({ msg: 'Coleccion no implementada' });
     }
 
-    // Delete previous images from Cloudinary (only if IMG its different to default image)
+    // Delete previous images from Cloudinary (only if IMG is different from the default image)
     if ( model.img && model.img != process.env.DEFAULT_USER_IMAGE ) {
         console.log('la cambie');
         const nameArr = model.img.split('/');
