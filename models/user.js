@@ -53,7 +53,6 @@ const UserSchema = Schema({
         type: Boolean,
         default: true
     }
-
 })
 
 UserSchema.methods.toJSON = function() {
@@ -62,6 +61,4 @@ UserSchema.methods.toJSON = function() {
     return user;
 }
 
-
-
-module.exports = model( 'community_user', UserSchema );
+module.exports = model( 'User', UserSchema );

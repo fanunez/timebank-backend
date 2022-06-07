@@ -1,15 +1,13 @@
-// const Role = require('./role');
-const User = require('./community_user');
-const Service = require('./service');
-const Category = require('./category');
-const Transaction = require('./transaction')
 const Achievement = require('./achievement')
+const Category = require('./category');
+const Service = require('./service');
+const Transaction = require('./transaction')
+const User = require('./user');
 
 module.exports = {
-    Service,
-    // Role,
-    User,   
+    Achievement,
     Category,
+    Service,
     Transaction, 
-    Achievement
+    User,   
 }
