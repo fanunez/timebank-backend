@@ -34,6 +34,9 @@ const UserSchema = Schema({
         type: String,
         required: [true, 'El correo es obligatorio']
     },
+    description: {
+        type: String,
+    },
     password: {
         type: String,
         required: [true, 'La contraseña es obligatorio']
