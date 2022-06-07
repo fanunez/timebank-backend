@@ -55,9 +55,6 @@ const putUser = async( req, res ) => {
 
     const { id } = req.params;
     const { _id, password, email, ...remainder } = req.body;
-
-    console.log( remainder )
-
     // Encriptar password
     if( password ) {
        const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado

@@ -11,7 +11,7 @@ pipeline {
                 }
             }
         }
-        stage ( 'Jasmine Tests' ) {
+        stage ( 'Unit Tests Mocha-Chai' ) {
             steps {
                 dir( 'build_node' ) {
                     sh 'npm test'
