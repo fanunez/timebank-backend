@@ -19,7 +19,7 @@ const router = Router();
 router.put('/:collection/:id', [
     validateFile,
     check('id', 'No es ID valido').isMongoId(),
-    check('collection').custom( c => collectionAllowed( c, ['users', 'services']) ),
+    check('collection').custom( c => collectionAllowed( c, ['users', 'service', 'category']) ),
     fieldValidator
 ], updateImageCloudinary );
 

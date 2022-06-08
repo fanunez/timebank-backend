@@ -10,6 +10,9 @@ const UserSchema = Schema({
         type: Number,
         required: [true, 'La solicitud es obligatoria']
     },
+    img: {
+        type: String,
+    },
     state: {
         type: Boolean,
         default: true

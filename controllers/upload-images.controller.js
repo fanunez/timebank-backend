@@ -4,7 +4,7 @@ const { response } = require("express");
 const cloudinary = require('cloudinary').v2;
 cloudinary.config( process.env.CLOUDINARY_URL );
 // Models
-const { User, Service } = require('../models');
+const { User, Service, Category } = require('../models');
 
 // Upload image to Cloudinary serviciosUser
 const updateImageCloudinary = async( req, res = response ) => {
@@ -23,11 +23,20 @@ const updateImageCloudinary = async( req, res = response ) => {
             }
             break;
         
-        case 'services':
+        case 'service':
             model = await Service.findById( id ); 
             if( !model ) {
                 return res.status(400).json({ 
                     msg: `No existe servicio con id ${ id }`
+                })
+            }
+            break;
+
+        case 'category':
+            model = await Category.findById( id ); 
+            if( !model ) {
+                return res.status(400).json({ 
+                    msg: `No existe categoria con id ${ id }`
                 })
             }
             break;
