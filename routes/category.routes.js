@@ -23,7 +23,7 @@ router.get('/:id',[
     fieldValidator
 ] , getCategoryById);
 
-router.get('/categoryBuscador/:name', [
+router.get('/categoryBuscador/search-by-title/:name', [
     check('name', 'El nombre a buscar es necesario').not().isEmpty(),
     fieldValidator
 ], buscador);
