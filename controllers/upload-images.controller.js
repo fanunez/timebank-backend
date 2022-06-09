@@ -33,7 +33,7 @@ const updateImageCloudinary = async( req, res = response ) => {
             break;
 
         case 'category':
-            model = await Category.findById( id ); 
+            model = await Category.findById( id );
             if( !model ) {
                 return res.status(400).json({ 
                     msg: `No existe categoria con id ${ id }`
@@ -53,7 +53,7 @@ const updateImageCloudinary = async( req, res = response ) => {
         const [ public_id ] = name.split('.');
         cloudinary.uploader.destroy( public_id );
     }
-
+    
     // Store image in cloudinary using API
     const { tempFilePath } = req.files.file;
     const { secure_url } = await cloudinary.uploader.upload( tempFilePath );
