@@ -71,11 +71,6 @@ router.put('/:id', [
     check('id_owner').not().isEmpty(),
     check('id_owner', 'No es un ID válido').isMongoId(),
     check('id_owner').custom( existUserById ),
-    // Check Achievements
-    check('achievements', 'Los logros son obligatorio').not().isEmpty(),
-    check('achievements', 'No es un ID válido').isMongoId(),
-    // Check status param
-    check('state').exists().isBoolean(),
     fieldValidator
 ], putService);
 
