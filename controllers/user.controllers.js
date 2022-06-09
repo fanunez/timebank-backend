@@ -52,7 +52,7 @@ const postUser = async( req = request, res = response ) => {
 
 // Actualizar Usuario
 const putUser = async( req, res ) => {
-
+    
     const { id } = req.params;
     const { _id, password, email, ...remainder } = req.body;
     // Encriptar password

@@ -1,11 +1,16 @@
+const { request } = require('express');
 // Import models
 const { User, Category, Achievement, Service, Transaction } = require('../models');
 
 // Verificacion de correo 
-const emailValidator = async( email = '' ) => {
+const emailValidator = async( email = '', { req = request } ) => {
     const exist = await User.findOne({ email });
-    if( exist ) {
-        throw new Error(`El email ${ email } ya está registrando en la base de datos`);
+    if( req.body.email == email ) {
+        return
+    } else {
+        if( exist ) {
+            throw new Error(`El email ${ email } ya está registrando en la base de datos`);
+        }
     }
 }
 
