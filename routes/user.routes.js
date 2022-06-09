@@ -4,7 +4,8 @@ const { check } = require('express-validator');
 // Middlewares
 const { fieldValidator,
         validateRUT,
-        validateJWT
+        validateJWT,
+        storeInformation
 } = require('../middlewares');
 // Helpers
 const { emailValidator,
@@ -54,6 +55,7 @@ router.post('/', [
 
 // Update user
 router.put('/:id', [
+    // storeInformation,
     check('id', 'El ID es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),
@@ -70,8 +72,6 @@ router.put('/:id', [
     check('email', 'El correo es obligatorio').not().isEmpty(),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom( emailValidator ),
-    check('password', 'La contraseña es obligatoria').not().isEmpty(),
-    check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15 }),
     check('type_user', 'El tipo de usario es obligatorio').not().isEmpty(),
     check('type_user').isIn(['Blue', 'Orange']),
     fieldValidator
