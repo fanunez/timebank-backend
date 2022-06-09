@@ -11,11 +11,13 @@ const { existCategoryById,
         existServiceById,
 } = require('../helpers/db-validators');
 // Controllers
-const { getService, 
+const { getService,
+        getServiceById, 
         postService, 
         putService, 
         deleteService, 
-        buscadorServicioUsuario, 
+        buscadorServicioUsuario,
+        serviceSearcherUserFiltered, 
         buscadorServicioCategoria, 
         buscadorTitulo 
 } = require('../controllers/service.controllers')
@@ -24,6 +26,14 @@ const router = Router();
 
 // Get all services
 router.get('/',getService);
+
+// Get by Id
+router.get('/:id',[
+    check('id', 'El ID de servicio es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existServiceById ),
+    fieldValidator  
+] , getServiceById);
 
 // Post new service
 router.post('/', [
@@ -92,6 +102,15 @@ router.get('/buscarUsuario/:id', [
     check('id').custom( existUserById ),
     fieldValidator
 ], buscadorServicioUsuario);
+
+// Search services by USER filtrado
+router.get('/buscarUsuario/:id/:title', [
+    check('id', 'El ID del Usuario es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('title', 'La palabra es obligatoria').not().isEmpty(),
+    fieldValidator
+], serviceSearcherUserFiltered);
+
 
 // Search services by CATEGORY
 router.get('/buscarCategoria/:id_category', [

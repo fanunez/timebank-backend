@@ -22,6 +22,17 @@ const getService = async( req = request, res = response ) => {
 
 }
 
+// Obtener servicio mediante id
+const getServiceById = async( req, res = response ) => {
+
+    const { id } = req.params;
+    const service = await Service.findById( id );
+    res.json(
+        service 
+    );
+
+}
+
 // Crear Servicios
 const postService = async( req = request, res = response ) => {
     const { title, id_category, description, value, id_owner, achievements, state } = req.body;
@@ -64,6 +75,22 @@ const buscadorServicioUsuario = async( req = request , res = response ) => {
     res.json( serviciosUser );
 }
 
+// Buscar los servicios de un usuario
+const serviceSearcherUserFiltered = async( req = request , res = response ) => {
+    const { id, title } = req.params;
+    const objectId = mongoose.Types.ObjectId( id );
+    const serviciosUser = await Service.find({id_owner: objectId, state: true});
+    let Arr = [];
+    const upperTitle = title.toUpperCase();
+    serviciosUser.filter( ( element ) => {
+        const upperElementTitle = element.title.toUpperCase();
+        if(upperElementTitle.includes(upperTitle)){
+            Arr.push(element);
+        } 
+    })
+    res.json( Arr );
+}
+
 // Buscar los servicios en base a una categoria
 const buscadorServicioCategoria = async( req = request , res = response ) => {
     const { id_category } = req.params;
@@ -89,10 +116,12 @@ const buscadorTitulo = async( req = request , res = response ) => {
 
 module.exports = {
     getService,
+    getServiceById,
     postService,
     putService,
     deleteService,
     buscadorServicioUsuario,
+    serviceSearcherUserFiltered,
     buscadorServicioCategoria,
     buscadorTitulo
 }
