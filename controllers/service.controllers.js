@@ -68,21 +68,21 @@ const deleteService = async(req, res) => {
 }
 
 // Buscar los servicios de un usuario
-const buscadorServicioUsuario = async( req = request , res = response ) => {
+const serviceUserFinder = async( req = request , res = response ) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId( id );
-    const serviciosUser = await Service.find({id_owner: objectId, state: true});
-    res.json( serviciosUser );
+    const userServices = await Service.find({id_owner: objectId, state: true});
+    res.json( userServices );
 }
 
 // Buscar los servicios de un usuario
-const serviceSearcherUserFiltered = async( req = request , res = response ) => {
+const serviceSearcherUserFilteredbyName = async( req = request , res = response ) => {
     const { id, title } = req.params;
     const objectId = mongoose.Types.ObjectId( id );
-    const serviciosUser = await Service.find({id_owner: objectId, state: true});
+    const userServices = await Service.find({id_owner: objectId, state: true});
     let Arr = [];
     const upperTitle = title.toUpperCase();
-    serviciosUser.filter( ( element ) => {
+    userServices.filter( ( element ) => {
         const upperElementTitle = element.title.toUpperCase();
         if(upperElementTitle.includes(upperTitle)){
             Arr.push(element);
@@ -92,23 +92,23 @@ const serviceSearcherUserFiltered = async( req = request , res = response ) => {
 }
 
 // Buscar los servicios en base a una categoria
-const buscadorServicioCategoria = async( req = request , res = response ) => {
+const categoryFinder = async( req = request , res = response ) => {
     const { id_category } = req.params;
     const objectId = mongoose.Types.ObjectId( id_category );
-    const serviciosUser = await Service.find({id_category: objectId, state: true});
-    res.json( serviciosUser );
+    const userServices = await Service.find({id_category: objectId, state: true});
+    res.json( userServices );
 }
 
 // Buscador de servicio por titulo
-const buscadorTitulo = async( req = request , res = response ) => {
+const getServicesByTitle = async( req = request , res = response ) => {
 
     const { title } = req.params;
     if(title){
-        const servicios = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}, state: true});
-        res.json( servicios );
+        const services = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}, state: true});
+        res.json( services );
     }else{
-        const servicios = await Service.find({})
-        res.json( servicios );
+        const services = await Service.find({})
+        res.json( services );
     }
 
 }
@@ -120,8 +120,8 @@ module.exports = {
     postService,
     putService,
     deleteService,
-    buscadorServicioUsuario,
-    serviceSearcherUserFiltered,
-    buscadorServicioCategoria,
-    buscadorTitulo
+    serviceUserFinder,
+    serviceSearcherUserFilteredbyName,
+    categoryFinder,
+    getServicesByTitle
 }

@@ -5,7 +5,6 @@ const { check } = require('express-validator');
 const { fieldValidator,
         validateRUT,
         validateJWT,
-        storeInformation
 } = require('../middlewares');
 // Helpers
 const { emailValidator,

@@ -46,7 +46,7 @@ const postCategory = async( req = request, res = response ) => {
 }
 
 // Buscador de categoria
-const buscador = async( req = request , res = response ) => {
+const getCategoryByTitle = async( req = request , res = response ) => {
 
     const { name } = req.params;
     if(name){
@@ -63,5 +63,5 @@ module.exports = {
     getCategory,
     getCategoryById,
     postCategory,
-    buscador,
+    getCategoryByTitle,
 }
