@@ -1,9 +1,9 @@
 // npm packages
 const { request, response } = require('express');
-
 // models
 const { Transaction } = require('../models');
 var mongoose = require('mongoose');
+const Service = require('../models/service');
 
 // Mostrar Transacciones
 const getTransaction = async( req = request, res = response ) => {
@@ -62,11 +62,25 @@ const ownRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
     const transactions = await Transaction.find({id_user_aplicant: objectId, state_request: 1, state: true});
-    res.json( transactions );
+
+    let servicesByTransaction = [];
+
+    for( const transaction of transactions ) {
+        const id = transaction.id_service;
+        const service = await Service.findById( id );
+        const payload = {
+            title: service.title,
+            uid_owner: transaction.id_user_owner,
+            date: transaction.date,
+        }
+        servicesByTransaction.push( payload );
+    }
+
+    res.json( servicesByTransaction );
 }
 
 // Vista Solicitudes enviadas a mis servicios (por usuario ID del dueño)
-const ServiceRequestTransaction = async(req, res) => {
+const serviceRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
     const serviceTransactions = await Transaction.find({id_user_owner: objectId, state_request: 1, state: true});
@@ -80,5 +94,5 @@ module.exports = {
     putTransaction,
     deleteTransaction,
     ownRequestTransaction,
-    ServiceRequestTransaction
+    serviceRequestTransaction
 }

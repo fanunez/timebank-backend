@@ -8,7 +8,7 @@ const { fieldValidator,
 const { getCategory,
         getCategoryById, 
         postCategory, 
-        buscador 
+        getCategoryByTitle 
 } = require('../controllers/category.controllers');
 const { existCategoryById } = require('../helpers/db-validators');
 
@@ -23,10 +23,10 @@ router.get('/:id',[
     fieldValidator
 ] , getCategoryById);
 
-router.get('/categoryBuscador/search-by-title/:name', [
+router.get('/search-by-title/:name', [
     check('name', 'El nombre a buscar es necesario').not().isEmpty(),
     fieldValidator
-], buscador);
+], getCategoryByTitle);
 
 router.post('/', [
     check('name', 'El nombre de cateogria es obligatorio').not().isEmpty(),

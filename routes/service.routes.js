@@ -16,10 +16,10 @@ const { getService,
         postService, 
         putService, 
         deleteService, 
-        buscadorServicioUsuario,
-        serviceSearcherUserFiltered, 
-        buscadorServicioCategoria, 
-        buscadorTitulo 
+        serviceUserFinder,
+        serviceSearcherUserFilteredbyName, 
+        categoryFinder, 
+        getServicesByTitle 
 } = require('../controllers/service.controllers')
 // Init router
 const router = Router();
@@ -86,35 +86,35 @@ router.delete('/:id', [
 ], deleteService);
 
 // Search services by USER 
-router.get('/buscarUsuario/:id', [
+router.get('/service-user-finder/:id', [
     check('id', 'El ID del Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),
     fieldValidator
-], buscadorServicioUsuario);
+], serviceUserFinder);
 
 // Search services by USER filtrado
-router.get('/buscarUsuario/:id/:title', [
+router.get('/service-user-finder/:id/:title', [
     check('id', 'El ID del Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('title', 'La palabra es obligatoria').not().isEmpty(),
     fieldValidator
-], serviceSearcherUserFiltered);
+], serviceSearcherUserFilteredbyName);
 
 
 // Search services by CATEGORY
-router.get('/buscarCategoria/:id_category', [
+router.get('/category-finder/:id_category', [
     check('id_category', 'El ID de la Categoria es obligatorio').not().isEmpty(),
     check('id_category', 'No es un ID válido').isMongoId(),
     check('id_category').custom( existCategoryById ),
     fieldValidator
-], buscadorServicioCategoria);
+], categoryFinder);
 
 // Search services by TITLE
-router.get('/buscarTitulo/:title', [
+router.get('/get-service/:title', [
     check('title', 'El título es necesario').not().isEmpty(),
     fieldValidator
-], buscadorTitulo);
+], getServicesByTitle);
 
 
 module.exports = router;

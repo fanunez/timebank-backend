@@ -16,7 +16,7 @@ const { getTransaction,
         putTransaction,
         deleteTransaction,
         ownRequestTransaction,
-        ServiceRequestTransaction 
+        serviceRequestTransaction 
 } = require('../controllers/transaction.controllers')
 // Init router
 const router = Router();
@@ -91,6 +91,6 @@ router.get('/owner_requests/:id', [
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),
     fieldValidator
-], ServiceRequestTransaction);
+], serviceRequestTransaction);
 
 module.exports = router;
