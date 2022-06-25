@@ -1,9 +1,8 @@
 // npm packages
 const { request, response } = require('express');
 // models
-const { Transaction } = require('../models');
+const { Transaction, Service, User } = require('../models');
 var mongoose = require('mongoose');
-const Service = require('../models/service');
 
 // Mostrar Transacciones
 const getTransaction = async( req = request, res = response ) => {
@@ -26,14 +25,36 @@ const getTransaction = async( req = request, res = response ) => {
 const postTransaction = async( req = request, res = response ) => {
 
     const { id_user_aplicant, id_user_owner, id_service, state_request, state } = req.body;
-    const date = Date.now();
-    const newTransaction = new Transaction({ id_user_aplicant, id_user_owner, id_service, date, state_request, state });
 
-    // Guardar en db y esperar guardado
-    await newTransaction.save();
+    const user = await User.findById( id_user_aplicant );
+    const service = await Service.findById( id_service );
 
-    res.json( newTransaction );
+    const userServices = await Transaction.find({id_user_aplicant: id_user_aplicant,
+         id_user_owner: id_user_owner, id_service: id_service , state: true});
+       
+    if(userServices.length != 0){
+        return res.json('Ya se postulo a este servicio');
+    }     
 
+    if(user.balance < service.value){
+        return res.json('No tiene suficientes bonos de tiempo');
+
+    }
+
+    // Service Postulation Case
+    if(user.balance >= service.value){
+
+        const newBalance = user.balance - service.value;
+        await User.findByIdAndUpdate( id_user_aplicant, {balance: newBalance});
+
+        const date = Date.now();
+        const newTransaction = new Transaction({ id_user_aplicant, id_user_owner, id_service, date, state_request, state });
+        await newTransaction.save();
+
+        res.json( newTransaction );
+
+
+    }
 }
 
 // Actualizar Transaccion
