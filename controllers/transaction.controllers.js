@@ -57,6 +57,36 @@ const postTransaction = async( req = request, res = response ) => {
     }
 }
 
+
+// Aceptar Transaccion
+const acceptTransaction = async( req = request, res = response ) => {
+    const { id_transaction } = req.body;
+    await Transaction.findByIdAndUpdate( id_transaction, {state_request: 2});
+    res.json("La transaccion fue aceptada")
+}
+
+// Rechazar Transaccion
+const rejectTransaction = async( req = request, res = response ) => {
+    
+    const {id_transaction} = req.body;
+
+    const transaction = await Transaction.findById( id_transaction );
+
+    const id_user_aplicant = transaction.id_user_aplicant;
+    const id_service = transaction.id_service;
+
+    const user = await User.findById( id_user_aplicant );
+    const service = await Service.findById( id_service );
+
+
+    const newBalance = user.balance + service.value;
+
+    await User.findByIdAndUpdate( id_user_aplicant, {balance: newBalance});
+    await Transaction.findByIdAndUpdate( id_transaction, {state_request: 0});
+
+    res.json("La transaccion fue rechazada")
+}
+
 // Actualizar Transaccion
 const putTransaction = async( req, res) => {
     const { id } = req.params;
@@ -115,5 +145,7 @@ module.exports = {
     putTransaction,
     deleteTransaction,
     ownRequestTransaction,
-    serviceRequestTransaction
+    serviceRequestTransaction,
+    acceptTransaction,
+    rejectTransaction
 }
