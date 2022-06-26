@@ -1,7 +1,7 @@
 // npm packages
 const { request, response } = require('express');
 // models
-const { Transaction, Service, User } = require('../models');
+const { Transaction, Service, User, Notification } = require('../models');
 var mongoose = require('mongoose');
 
 // Mostrar Transacciones
@@ -51,8 +51,17 @@ const postTransaction = async( req = request, res = response ) => {
         const newTransaction = new Transaction({ id_user_aplicant, id_user_owner, id_service, date, state_request, state });
         await newTransaction.save();
 
-        res.json( newTransaction );
+        // Notification
+        
+        const id_user = id_user_owner;
+        const name = user.name;
+        const surname = user.surname;
+        const title = service.title;
+        const description = "El usuario " + name + " " + surname + " ha solicitado tu servicio de " + title;
+        const newNotification = new Notification({ id_user, description, date});
+        await newNotification.save();
 
+        res.json( newTransaction );
 
     }
 }
