@@ -4,12 +4,12 @@ const UserSchema = Schema({
 
     id_user_aplicant: {
         type: Schema.Types.ObjectId,
-        ref: 'community_user',
+        ref: 'user',
         required: [true, 'El id usuario aplicante es obligatorio']
     },
     id_user_owner: {
         type: Schema.Types.ObjectId,
-        ref: 'community_user',
+        ref: 'user',
         required: [true, 'El id usuario dueño es obligatorio']
     },
     id_service: {

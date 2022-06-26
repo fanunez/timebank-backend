@@ -109,12 +109,6 @@ router.post('/reject_transaction', [
     check('id_transaction', 'El ID de Transaccion es obligatorio').not().isEmpty(),
     check('id_transaction', 'No es un ID válido').isMongoId(),
     check('id_transaction').custom( existTransactionById ),
-    check('id_user_aplicant', 'El ID de Usuario es obligatorio').not().isEmpty(),
-    check('id_user_aplicant', 'No es un ID válido').isMongoId(),
-    check('id_user_aplicant').custom( existUserById ),
-    check('id_service', 'El ID de Servicio es obligatorio').not().isEmpty(),
-    check('id_service', 'No es un ID válido').isMongoId(),
-    check('id_service').custom( existServiceById ),
     fieldValidator
 ], rejectTransaction);
 
