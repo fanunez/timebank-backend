@@ -65,6 +65,16 @@ const deleteNotification = async(req, res) => {
 
 }
 
+// Get User Notifications
+const getUserNotification = async(req, res) => {
+    const { id } = req.params;
+    const notifications = await Notification.find({id_user: id, state: true});
+    res.json(
+        notifications, 
+    );
+
+}
+
 
 module.exports = {
     getNotification,
@@ -72,4 +82,5 @@ module.exports = {
     postNotification,
     putNotification,
     deleteNotification,
+    getUserNotification
 }

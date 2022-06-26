@@ -11,7 +11,8 @@ const { existNotificationById, existUserById } = require('../helpers/db-validato
 const { getNotification,
         postNotification,
         putNotification,
-        deleteNotification
+        deleteNotification,
+        getUserNotification
 } = require('../controllers/notification.controllers')
 // Init router
 const router = Router();
@@ -53,5 +54,13 @@ router.delete('/:id', [
     check('id').custom( existNotificationById ),
     fieldValidator
 ], deleteNotification);
+
+// Get all notification
+router.get('/user-notifactions/:id', [
+    check('id').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], getUserNotification);
 
 module.exports = router;

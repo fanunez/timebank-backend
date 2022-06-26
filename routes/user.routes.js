@@ -48,7 +48,7 @@ router.post('/', [
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     check('password', 'La contraseña debe tener más de 6 carácteres').isLength({ min: 6, max: 15 }),
     check('type_user', 'El tipo de usario es obligatorio').not().isEmpty(),
-    check('type_user').isIn(['Blue', 'Orange']),
+    check('type_user').isIn(['Blue', 'Orange', 'Admin']),
     fieldValidator
 ],postUser );
 
