@@ -53,6 +53,10 @@ const UserSchema = Schema({
         type: String,
         default: process.env.DEFAULT_USER_IMAGE
     },
+    date:{
+        type: Date,
+        required: [true, 'La fecha de ultima conexión es obligatoria']
+    },
     state: {
         type: Boolean,
         default: true

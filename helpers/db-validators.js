@@ -1,6 +1,6 @@
 const { request } = require('express');
 // Import models
-const { User, Category, Achievement, Service, Transaction } = require('../models');
+const { User, Category, Achievement, Service, Transaction, Notification } = require('../models');
 
 // Verificacion de correo 
 const emailValidator = async( email = '', { req = request } ) => {
@@ -65,6 +65,14 @@ const existTransactionById = async( id ) => {
     }
 }
 
+// Verificacion de existencia de id de usuario
+const existNotificationById = async( id ) => {
+    const exist = await Notification.findById( id );
+    if( !exist ) {
+        throw new Error(`No existe usuario con id ${ id }`);
+    }
+}
+
 
 module.exports = {
     emailValidator,
@@ -73,5 +81,6 @@ module.exports = {
     existCategoryById,
     existAchievementById,
     existServiceById,
-    existTransactionById
+    existTransactionById,
+    existNotificationById
 }

@@ -19,7 +19,8 @@ const { getService,
         serviceUserFinder,
         serviceSearcherUserFilteredbyName, 
         categoryFinder, 
-        getServicesByTitle 
+        getServicesByTitle,
+        getServiceTimesnap
 } = require('../controllers/service.controllers')
 // Init router
 const router = Router();
@@ -97,6 +98,7 @@ router.get('/service-user-finder/:id', [
 router.get('/service-user-finder/:id/:title', [
     check('id', 'El ID del Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
     check('title', 'La palabra es obligatoria').not().isEmpty(),
     fieldValidator
 ], serviceSearcherUserFilteredbyName);
@@ -116,5 +118,12 @@ router.get('/get-service/:title', [
     fieldValidator
 ], getServicesByTitle);
 
+// Search Service Timesnap
+router.get('/service-timesnap/:id', [
+    check('id', 'El ID del servicio es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existServiceById ),
+    fieldValidator
+], getServiceTimesnap);
 
 module.exports = router;

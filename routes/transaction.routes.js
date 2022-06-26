@@ -16,7 +16,9 @@ const { getTransaction,
         putTransaction,
         deleteTransaction,
         ownRequestTransaction,
-        serviceRequestTransaction 
+        serviceRequestTransaction,
+        acceptTransaction,
+        rejectTransaction 
 } = require('../controllers/transaction.controllers')
 // Init router
 const router = Router();
@@ -92,5 +94,24 @@ router.get('/owner_requests/:id', [
     check('id').custom( existUserById ),
     fieldValidator
 ], serviceRequestTransaction);
+
+// Accept Transaction
+router.post('/accept_transaction', [
+    check('id_transaction', 'El ID de Transaccion es obligatorio').not().isEmpty(),
+    check('id_transaction', 'No es un ID válido').isMongoId(),
+    check('id_transaction').custom( existTransactionById ),
+    fieldValidator
+], acceptTransaction);
+
+
+// Reject Transaction
+router.post('/reject_transaction', [
+    check('id_transaction', 'El ID de Transaccion es obligatorio').not().isEmpty(),
+    check('id_transaction', 'No es un ID válido').isMongoId(),
+    check('id_transaction').custom( existTransactionById ),
+    fieldValidator
+], rejectTransaction);
+
+
 
 module.exports = router;
