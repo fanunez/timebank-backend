@@ -36,12 +36,10 @@ const getServiceById = async( req, res = response ) => {
 // Crear Servicios
 const postService = async( req = request, res = response ) => {
     const { title, id_category, description, value, id_owner, achievements, state } = req.body;
-    const newService = new Service({ title, id_category, description, value, id_owner, achievements, state });
-    // Guardar en db y esperar guardado
+    const date = Date.now();
+    const newService = new Service({ title, id_category, description, value, id_owner, achievements, date, state});
     await newService.save();
-
     res.json( newService );
-
 }
 
 // Actualizar Servicios
@@ -113,6 +111,17 @@ const getServicesByTitle = async( req = request , res = response ) => {
 
 }
 
+// Obtener Timesnap de la creación del servicio
+
+const getServiceTimesnap = async( req = request , res = response ) => {
+
+    const { id } = req.params;
+    const service = await Service.findById( id );
+    timesnap = service.date;
+    res.json(timesnap);
+
+}
+
 
 module.exports = {
     getService,
@@ -123,5 +132,6 @@ module.exports = {
     serviceUserFinder,
     serviceSearcherUserFilteredbyName,
     categoryFinder,
-    getServicesByTitle
+    getServicesByTitle,
+    getServiceTimesnap
 }
