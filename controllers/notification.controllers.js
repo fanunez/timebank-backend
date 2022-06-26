@@ -75,7 +75,6 @@ const getUserNotification = async(req, res) => {
 
 }
 
-
 module.exports = {
     getNotification,
     getNotificationById,
