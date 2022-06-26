@@ -61,7 +61,20 @@ const postTransaction = async( req = request, res = response ) => {
 // Aceptar Transaccion
 const acceptTransaction = async( req = request, res = response ) => {
     const { id_transaction } = req.body;
+
+    const transaction = await Transaction.findById( id_transaction );
+
+    const id_service = transaction.id_service;
+
+    const service = await Service.findById( id_service );
+    const request_counter = service.request_counter;
+    const new_request_counter = request_counter + 1;
+
+    await Service.findByIdAndUpdate( id_service, {request_counter: new_request_counter});
+
     await Transaction.findByIdAndUpdate( id_transaction, {state_request: 2});
+
+
     res.json("La transaccion fue aceptada")
 }
 
