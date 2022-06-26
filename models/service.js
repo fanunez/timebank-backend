@@ -30,6 +30,10 @@ const UserSchema = Schema({
     achievements: {
         type: [Schema.Types.ObjectId]
     },
+    date:{
+        type: Date,
+        required: [true, 'La fecha de creación del servicio es obligatoria']
+    },
     state: {
         type: Boolean,
         default: true
