@@ -35,7 +35,6 @@ const getNotificationById = async( req, res = response ) => {
 
 // Crear Notificacion
 const postNotification = async( req = request, res = response ) => {
-    console.log("CSM");
     const { id_user, description} = req.body;
     const date = Date.now();
     const newNotification = new Notification({ id_user, description, date});
@@ -60,7 +59,6 @@ const putNotification = async( req, res) => {
 const deleteNotification = async(req, res) => {
     const { id } = req.params;
     const notificacion = await Notification.findByIdAndUpdate( id, { state: false } );
-    
     res.json({
         notificacion, 
     });

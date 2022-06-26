@@ -52,7 +52,6 @@ const postTransaction = async( req = request, res = response ) => {
         await newTransaction.save();
 
         // Notification
-        
         const id_user = id_user_owner;
         const name = user.name;
         const surname = user.surname;
@@ -72,7 +71,6 @@ const acceptTransaction = async( req = request, res = response ) => {
     const { id_transaction } = req.body;
 
     const transaction = await Transaction.findById( id_transaction );
-
     const id_service = transaction.id_service;
 
     const service = await Service.findById( id_service );
@@ -80,8 +78,15 @@ const acceptTransaction = async( req = request, res = response ) => {
     const new_request_counter = request_counter + 1;
 
     await Service.findByIdAndUpdate( id_service, {request_counter: new_request_counter});
-
     await Transaction.findByIdAndUpdate( id_transaction, {state_request: 2});
+
+    // Notification
+    const id_user = transaction.id_user_aplicant;
+    const service_name = service.title;
+    const description = "Tu solicitud del servicio " + service_name + " ha sido aceptada";
+    const date = Date.now();
+    const newNotification = new Notification({ id_user, description, date});
+    await newNotification.save();
 
 
     res.json("La transaccion fue aceptada")
@@ -100,11 +105,18 @@ const rejectTransaction = async( req = request, res = response ) => {
     const user = await User.findById( id_user_aplicant );
     const service = await Service.findById( id_service );
 
-
     const newBalance = user.balance + service.value;
 
     await User.findByIdAndUpdate( id_user_aplicant, {balance: newBalance});
     await Transaction.findByIdAndUpdate( id_transaction, {state_request: 0});
+
+    // Notification
+    const id_user = transaction.id_user_aplicant;
+    const service_name = service.title;
+    const description = "Tu solicitud del servicio " + service_name + " ha sido rechazada";
+    const date = Date.now();
+    const newNotification = new Notification({ id_user, description, date});
+    await newNotification.save();
 
     res.json("La transaccion fue rechazada")
 }
