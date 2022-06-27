@@ -181,7 +181,7 @@ const serviceRequestTransaction = async(req, res) => {
             uid_aplicant: transaction.id_user_aplicant,
             date: transaction.date,
         }
-        servicesByTransaction.push( payload );
+        servicesByTransactionO.push( payload );
     }
     res.json( servicesByTransactionO );
 }

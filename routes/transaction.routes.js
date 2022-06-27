@@ -79,7 +79,7 @@ router.delete('/:id', [
     fieldValidator
 ], deleteTransaction);
 
-// Get transaction by OWNER
+// Get transaction by APLICANT
 router.get('/own_request/:id', [
     check('id', 'El ID de Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
@@ -87,7 +87,7 @@ router.get('/own_request/:id', [
     fieldValidator
 ], ownRequestTransaction);
 
-// Get transaction by APLICANT
+// Get transaction by OWNER
 router.get('/owner_requests/:id', [
     check('id', 'El ID de Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
