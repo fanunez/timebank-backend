@@ -169,7 +169,21 @@ const serviceRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
     const serviceTransactions = await Transaction.find({id_user_owner: objectId, state_request: 1, state: true});
-    res.json( serviceTransactions );
+    
+    let servicesByTransactionO = [];
+
+    for( const transaction of serviceTransactions ) {
+        const id = transaction.id_service;
+        const service = await Service.findById( id );
+        const payload = {
+            title: service.title,
+            id_service: transaction.id_service,
+            uid_aplicant: transaction.id_user_aplicant,
+            date: transaction.date,
+        }
+        servicesByTransaction.push( payload );
+    }
+    res.json( servicesByTransactionO );
 }
 
 
