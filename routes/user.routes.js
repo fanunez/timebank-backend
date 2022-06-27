@@ -15,7 +15,8 @@ const { getUser,
         getUserById,
         postUser,
         putUser,
-        deleteUser 
+        deleteUser,
+        balanceAsignator 
 } = require('../controllers/user.controllers');
 // Init router
 const router = Router();
@@ -84,5 +85,13 @@ router.delete('/:id', [
     check('id').custom( existUserById ),
     fieldValidator
 ], deleteUser );
+
+// Update user
+router.put('/balance-asignator/:id', [
+    // Check value param
+    check('balance').not().isEmpty(),
+    check('balance').exists().isNumeric(),
+    fieldValidator
+],putUser );
  
 module.exports = router;

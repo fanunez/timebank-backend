@@ -79,7 +79,13 @@ const deleteUser = async( req, res ) => {
     });
 }
 
-
+// Asignar bonos
+const balanceAsignator = async( req, res ) => {
+    const { id } = req.params;
+    const { balance } = req.body;
+    User.findByIdAndUpdate( id, {balance: balance} );
+    res.json( newUser );
+}
 
 module.exports = {
     getUser,
@@ -87,4 +93,5 @@ module.exports = {
     postUser,
     putUser,
     deleteUser,
+    balanceAsignator
 }

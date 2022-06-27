@@ -20,7 +20,8 @@ const { getService,
         serviceSearcherUserFilteredbyName, 
         categoryFinder, 
         getServicesByTitle,
-        getServiceTimesnap
+        getServiceTimesnap,
+        getPopularServices
 } = require('../controllers/service.controllers')
 // Init router
 const router = Router();
@@ -125,5 +126,8 @@ router.get('/service-timesnap/:id', [
     check('id').custom( existServiceById ),
     fieldValidator
 ], getServiceTimesnap);
+
+// Get all services
+router.get('/popular-services/getAll', getPopularServices);
 
 module.exports = router;

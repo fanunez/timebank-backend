@@ -122,6 +122,11 @@ const getServiceTimesnap = async( req = request , res = response ) => {
 
 }
 
+// Show popular services
+const getPopularServices = async( req = request, res = response ) => {
+    const services = await Service.find({state: true}).sort({request_counter: -1}).limit(5);
+    res.json(services);
+}
 
 module.exports = {
     getService,
@@ -133,5 +138,6 @@ module.exports = {
     serviceSearcherUserFilteredbyName,
     categoryFinder,
     getServicesByTitle,
-    getServiceTimesnap
+    getServiceTimesnap,
+    getPopularServices
 }
