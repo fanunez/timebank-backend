@@ -57,7 +57,7 @@ const postTransaction = async( req = request, res = response ) => {
         const surname = user.surname;
         const title = service.title;
         const description = "El usuario " + name + " " + surname + " ha solicitado tu servicio de " + title;
-        const newNotification = new Notification({ id_user, description, date});
+        const newNotification = new Notification({ id_user, id_service, description, date});
         await newNotification.save();
 
         res.json( newTransaction );
@@ -85,7 +85,7 @@ const acceptTransaction = async( req = request, res = response ) => {
     const service_name = service.title;
     const description = "Tu solicitud del servicio " + service_name + " ha sido aceptada";
     const date = Date.now();
-    const newNotification = new Notification({ id_user, description, date});
+    const newNotification = new Notification({ id_user, id_service, description, date});
     await newNotification.save();
 
 
@@ -115,7 +115,7 @@ const rejectTransaction = async( req = request, res = response ) => {
     const service_name = service.title;
     const description = "Tu solicitud del servicio " + service_name + " ha sido rechazada";
     const date = Date.now();
-    const newNotification = new Notification({ id_user, description, date});
+    const newNotification = new Notification({ id_user, id_service, description, date});
     await newNotification.save();
 
     res.json("La transaccion fue rechazada")

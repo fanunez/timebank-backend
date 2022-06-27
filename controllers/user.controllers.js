@@ -80,11 +80,19 @@ const deleteUser = async( req, res ) => {
 }
 
 // Asignar bonos
-const balanceAsignator = async( req, res ) => {
+const balanceAsignator = async( req = request , res = response ) => {
     const { id } = req.params;
     const { balance } = req.body;
-    User.findByIdAndUpdate( id, {balance: balance} );
-    res.json( newUser );
+    const user = await User.findByIdAndUpdate( id, {balance: balance});
+    res.json(user);
+}
+
+// User Finder by Name & Surname
+const getUserByNameSurname = async( req = request , res = response ) => {
+    const { name, surname } = req.params;
+    const user = await User.find({name:{$regex:'.*'+name+'.*',$options:"i"},
+     surname:{$regex:'.*'+surname+'.*',$options:"i"}, state: true});
+    res.json( user );
 }
 
 module.exports = {
@@ -93,5 +101,6 @@ module.exports = {
     postUser,
     putUser,
     deleteUser,
-    balanceAsignator
+    balanceAsignator,
+    getUserByNameSurname
 }

@@ -16,7 +16,8 @@ const { getUser,
         postUser,
         putUser,
         deleteUser,
-        balanceAsignator 
+        balanceAsignator,
+        getUserByNameSurname 
 } = require('../controllers/user.controllers');
 // Init router
 const router = Router();
@@ -86,12 +87,18 @@ router.delete('/:id', [
     fieldValidator
 ], deleteUser );
 
-// Update user
+// Balance Asignator
 router.put('/balance-asignator/:id', [
-    // Check value param
+    check('id', 'El ID es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    // Check balance param
     check('balance').not().isEmpty(),
     check('balance').exists().isNumeric(),
     fieldValidator
-],putUser );
- 
+], balanceAsignator);
+
+// Get User By Name and Surname 
+router.get('/getUser/:name/:surname', getUserByNameSurname );
+
 module.exports = router;

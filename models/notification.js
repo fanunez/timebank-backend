@@ -7,6 +7,11 @@ const UserSchema = Schema({
         ref: 'user',
         required: [true, 'El id usuario de la notificacion es obligatoria']
     },
+    id_service: {
+        type: Schema.Types.ObjectId,
+        ref: 'service',
+        required: [true, 'El id del servicio es obligatorio']
+    },
     description: {
         type: String,
         required: [true, 'La descripción es obligatoria'] 

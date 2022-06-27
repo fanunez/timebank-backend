@@ -35,9 +35,9 @@ const getNotificationById = async( req, res = response ) => {
 
 // Crear Notificacion
 const postNotification = async( req = request, res = response ) => {
-    const { id_user, description} = req.body;
+    const { id_user, id_service, description} = req.body;
     const date = Date.now();
-    const newNotification = new Notification({ id_user, description, date});
+    const newNotification = new Notification({ id_user, id_service, description, date});
     // Guardar en db y esperar guardado
     await newNotification.save();
     res.json( newNotification );
