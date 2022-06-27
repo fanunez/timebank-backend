@@ -47,7 +47,6 @@ const updateImageCloudinary = async( req, res = response ) => {
 
     // Delete previous images from Cloudinary (only if IMG is different from the default image)
     if ( model.img && model.img != process.env.DEFAULT_USER_IMAGE ) {
-        console.log('la cambie');
         const nameArr = model.img.split('/');
         const name = nameArr[ nameArr.length - 1 ];
         const [ public_id ] = name.split('.');
