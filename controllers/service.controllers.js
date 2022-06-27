@@ -111,15 +111,10 @@ const getServicesByTitle = async( req = request , res = response ) => {
 
 }
 
-// Obtener Timesnap de la creación del servicio
-
-const getServiceTimesnap = async( req = request , res = response ) => {
-
-    const { id } = req.params;
-    const service = await Service.findById( id );
-    timesnap = service.date;
-    res.json(timesnap);
-
+// Obtener Ultimos servicios creados
+const getLastServices = async( req = request , res = response ) => {
+    const services = await Service.find({state: true}).sort({date: -1});
+    res.json(services);
 }
 
 // Show popular services
@@ -138,6 +133,6 @@ module.exports = {
     serviceSearcherUserFilteredbyName,
     categoryFinder,
     getServicesByTitle,
-    getServiceTimesnap,
+    getLastServices,
     getPopularServices
 }
