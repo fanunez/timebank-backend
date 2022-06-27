@@ -6,7 +6,9 @@ const { fieldValidator,
         validateJWT
 } = require('../middlewares');
 // Helpers
-const { existNotificationById, existUserById } = require('../helpers/db-validators');
+const { existNotificationById, 
+    existUserById,
+    existServiceById } = require('../helpers/db-validators');
 // Controllers
 const { getNotification,
         postNotification,
@@ -27,22 +29,28 @@ router.post('/', [
     check('id_user', 'No es un ID válido').isMongoId(),
     check('id_user').custom( existUserById ),
     // Check id service
+    check('id_service').not().isEmpty(),
+    check('id_service', 'No es un ID válido').isMongoId(),
+    check('id_service').custom( existServiceById ),
     check('description').not().isEmpty(),
     fieldValidator
 ], postNotification);
 
 // Update notification
 router.put('/:id', [
-        // Check id user notification
-        check('id').not().isEmpty(),
-        check('id', 'No es un ID válido').isMongoId(),
-        check('id').custom( existNotificationById ),
-        // Check id user notification
-        check('id_user').not().isEmpty(),
-        check('id_user', 'No es un ID válido').isMongoId(),
-        check('id_user').custom( existUserById ),
-        // Check id service
-        check('description').not().isEmpty(),
+    // Check id user notification
+    check('id').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existNotificationById ),
+    // Check id user notification
+    check('id_user').not().isEmpty(),
+    check('id_user', 'No es un ID válido').isMongoId(),
+    check('id_user').custom( existUserById ),
+    // Check id service
+    check('id_service').not().isEmpty(),
+    check('id_service', 'No es un ID válido').isMongoId(),
+    check('id_service').custom( existServiceById ),
+    check('description').not().isEmpty(),
     fieldValidator
 ], putNotification);
 
