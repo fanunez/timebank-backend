@@ -32,6 +32,7 @@ router.post('/', [
     check('id_service').not().isEmpty(),
     check('id_service', 'No es un ID válido').isMongoId(),
     check('id_service').custom( existServiceById ),
+    // Check description
     check('description').not().isEmpty(),
     fieldValidator
 ], postNotification);
@@ -42,15 +43,7 @@ router.put('/:id', [
     check('id').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existNotificationById ),
-    // Check id user notification
-    check('id_user').not().isEmpty(),
-    check('id_user', 'No es un ID válido').isMongoId(),
-    check('id_user').custom( existUserById ),
-    // Check id service
-    check('id_service').not().isEmpty(),
-    check('id_service', 'No es un ID válido').isMongoId(),
-    check('id_service').custom( existServiceById ),
-    check('description').not().isEmpty(),
+    check('check').isIn([0, 1]),
     fieldValidator
 ], putNotification);
 
