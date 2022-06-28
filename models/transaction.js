@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const UserSchema = Schema({
+const TransactionSchema = Schema({
 
     id_user_aplicant: {
         type: Schema.Types.ObjectId,
@@ -31,10 +31,10 @@ const UserSchema = Schema({
     }
 })
 
-UserSchema.methods.toJSON = function() {
+TransactionSchema.methods.toJSON = function() {
     const { __v, _id, ...transaction } = this.toObject();
     transaction.uid = _id;
     return transaction;
 }
 
-module.exports = model('Transaction', UserSchema);
+module.exports = model('Transaction', TransactionSchema);

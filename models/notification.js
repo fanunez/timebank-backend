@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const UserSchema = Schema({
+const NotificationSchema = Schema({
 
     id_user: {
         type: Schema.Types.ObjectId,
@@ -30,10 +30,10 @@ const UserSchema = Schema({
     }
 })
 
-UserSchema.methods.toJSON = function() {
+NotificationSchema.methods.toJSON = function() {
     const { __v, _id, ...notification } = this.toObject();
     notification.uid = _id;
     return notification;
 }
 
-module.exports = model('Notification', UserSchema);
+module.exports = model('Notification', NotificationSchema);
