@@ -55,7 +55,6 @@ router.put('/:id', [
 // Delete Category
 // in later versions add a validator so that only the ADMINISTRATOR USER can run this operation
 router.delete('/:id', [
-    validateJWT,
     check('id', 'El ID del Servicio es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existCategoryById ),
