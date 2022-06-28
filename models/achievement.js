@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const UserSchema = Schema({
+const AchievementSchema = Schema({
 
     name: {
         type: String,
@@ -16,10 +16,10 @@ const UserSchema = Schema({
     }
 })
 
-UserSchema.methods.toJSON = function() {
+AchievementSchema.methods.toJSON = function() {
     const { __v, _id, ...achievement } = this.toObject();
     achievement.uid = _id;
     return achievement;
 }
 
-module.exports = model('Achievement', UserSchema);
+module.exports = model('Achievement', AchievementSchema);

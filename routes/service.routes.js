@@ -20,7 +20,7 @@ const { getService,
         serviceSearcherUserFilteredbyName, 
         categoryFinder, 
         getServicesByTitle,
-        getServiceTimesnap,
+        getLastServices,
         getPopularServices
 } = require('../controllers/service.controllers')
 // Init router
@@ -119,13 +119,8 @@ router.get('/get-service/:title', [
     fieldValidator
 ], getServicesByTitle);
 
-// Search Service Timesnap
-router.get('/service-timesnap/:id', [
-    check('id', 'El ID del servicio es obligatorio').not().isEmpty(),
-    check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom( existServiceById ),
-    fieldValidator
-], getServiceTimesnap);
+// Search Last Services
+router.get('/last-services/getAll', getLastServices);
 
 // Get all services
 router.get('/popular-services/getAll', getPopularServices);
