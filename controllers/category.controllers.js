@@ -3,7 +3,7 @@ const { request, response } = require('express');
 // models
 const { Category } = require('../models');
 
-// Mostrar Categorias
+// Show all Categories with state true (actives)
 const getCategory = async( req = request, res = response ) => {
     const query = { state: true};
     const [ total, categories ] = await Promise.all([
@@ -16,24 +16,22 @@ const getCategory = async( req = request, res = response ) => {
     });
 }
 
-// Obtener categoria mediante id
+// Get Category by id
 const getCategoryById = async( req, res = response ) => {
     const { id } = req.params;
     const category = await Category.findById( id );
     res.json( category );
 }
 
-// Crear Categoria
+// Create Category
 const postCategory = async( req = request, res = response ) => {
-    // const body = req.body;
     const { name, petition } = req.body;
     const newCategory = new Category({ name, petition });
-    // Guardar en db y esperar guardado
     await newCategory.save();
     res.json( newCategory );
 }
 
-// Buscador de categoria
+// Category searcher by title
 const getCategoryByTitle = async( req = request , res = response ) => {
     const { name } = req.params;
     if(name){

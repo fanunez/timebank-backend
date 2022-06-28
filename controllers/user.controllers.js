@@ -4,94 +4,84 @@ const bcryptjs = require('bcryptjs');
 // models
 const { User } = require('../models');
 
-// Mostrar Usuarios
+// Show all Users with state true (actives)
 const getUser = async( req = request, res = response ) => {
-    
     const { since = 0 } = req.query;
-
     const query = { state: true };
-
     const [ total, usersComunidad ] = await Promise.all([
         User.countDocuments( query ),
         User.find( query )
             .skip( Number(since) )
     ]);
-
     res.json({
         total,
         usersComunidad
     });
-
 }
 
-// Obtener producto mediante id
+// Get User by id
 const getUserById = async( req, res = response ) => {
-
     const { id } = req.params;
     const user = await User.findById( id );
     res.json({
         user 
     });
-
 }
 
-// Crear Usuario
+// Create User
 const postUser = async( req = request, res = response ) => {
-
-    // const body = req.body;
     const { name, surname, relation, age, address, phone, rut, email, description, password, type_user, state } = req.body;
     const date = Date.now();
     const newUser = new User({ name, surname, relation, age, address, phone, rut, email, description, password, type_user, date, state });
-    // Encriptar password
-    const salt = bcryptjs.genSaltSync(); // Número de vueltas para dificultar descifrado
-    newUser.password = bcryptjs.hashSync( password, salt ); // hashing
-    // Guardar en db y esperar guardado
+    // Encrypt password
+    const salt = bcryptjs.genSaltSync(); // Number of turns to make decryption difficult
+    newUser.password = bcryptjs.hashSync( password, salt ); // Hashing
     await newUser.save();
     res.json( newUser );
 
 }
 
-// Actualizar Usuario
+// Update User
 const putUser = async( req, res ) => {
-    
     const { id } = req.params;
     const { _id, password, email, ...remainder } = req.body;
-    // Encriptar password
+    // Encrypt password
     if( password ) {
-       const salt = bcryptjs.genSaltSync(); //Numero de vueltas para dificultar descifrado
-       remainder.password = bcryptjs.hashSync( password, salt ); // hashing
+       const salt = bcryptjs.genSaltSync(); // Number of turns to make decryption difficult
+       remainder.password = bcryptjs.hashSync( password, salt ); // Hashing
     }
     const newUser = await User.findByIdAndUpdate( id, remainder );
     res.json( newUser );
 
 }
 
-// Eliminar Usuario
+// Delete User
 const deleteUser = async( req, res ) => {
-
     const { id } = req.params;
     const user = await User.findByIdAndUpdate( id, { state: false } );
     const userAuth = req.userAuth;
-    
     res.json({
         user, 
         userAuth
     });
 }
 
-// Asignar bonos
+// Assign balance
 const balanceAsignator = async( req = request , res = response ) => {
     const { id } = req.params;
     const { balance } = req.body;
     const user = await User.findByIdAndUpdate( id, {balance: balance});
-    res.json(user);
+    res.json( user );
 }
 
 // User Finder by Name & Surname
 const getUserByNameSurname = async( req = request , res = response ) => {
     const { name, surname } = req.params;
-    const user = await User.find({name:{$regex:'.*'+name+'.*',$options:"i"},
-     surname:{$regex:'.*'+surname+'.*',$options:"i"}, state: true});
+    const user = await User.find({
+        name:{$regex:'.*'+name+'.*',$options:"i"},
+        surname:{$regex:'.*'+surname+'.*',$options:"i"}, 
+        state: true
+    });
     res.json( user );
 }
 

@@ -1,39 +1,30 @@
 // npm packages
 const { request, response } = require('express');
 var mongoose = require('mongoose');
-
 // models
 const { Service } = require('../models');
 
-// Mostrar Servicios
+// Show all Services with state true (actives)
 const getService = async( req = request, res = response ) => {
-
     const query = { state: true};
-
     const [ total, services ] = await Promise.all([
         Service.countDocuments( query ),
         Service.find( query )
     ]);
-
     res.json({
         total,
         services
     });
-
 }
 
-// Obtener servicio mediante id
+// Get Service by id
 const getServiceById = async( req, res = response ) => {
-
     const { id } = req.params;
     const service = await Service.findById( id );
-    res.json(
-        service 
-    );
-
+    res.json( service );
 }
 
-// Crear Servicios
+// Create Service
 const postService = async( req = request, res = response ) => {
     const { title, id_category, description, value, id_owner, achievements, state } = req.body;
     const date = Date.now();
@@ -42,30 +33,22 @@ const postService = async( req = request, res = response ) => {
     res.json( newService );
 }
 
-// Actualizar Servicios
+// Update Service
 const putService = async( req, res) => {
-
     const { id } = req.params;
     const { _id, ...remainder } = req.body;
-
     const newService = await Service.findByIdAndUpdate( id, remainder );
-
     res.json( newService );
-
 }
 
-// Eliminar Servicio
+// Delete Servicio
 const deleteService = async(req, res) => {
     const { id } = req.params;
     const service = await Service.findByIdAndUpdate( id, { state: false } );
-    
-    res.json({
-        service, 
-    });
-
+    res.json( service );
 }
 
-// Buscar los servicios de un usuario
+// Search Services by user
 const serviceUserFinder = async( req = request , res = response ) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId( id );
@@ -73,7 +56,7 @@ const serviceUserFinder = async( req = request , res = response ) => {
     res.json( userServices );
 }
 
-// Buscar los servicios de un usuario
+// Search services by owner
 const serviceSearcherUserFilteredbyName = async( req = request , res = response ) => {
     const { id, title } = req.params;
     const objectId = mongoose.Types.ObjectId( id );
@@ -89,7 +72,7 @@ const serviceSearcherUserFilteredbyName = async( req = request , res = response 
     res.json( Arr );
 }
 
-// Buscar los servicios en base a una categoria
+// Search services by category
 const categoryFinder = async( req = request , res = response ) => {
     const { id_category } = req.params;
     const objectId = mongoose.Types.ObjectId( id_category );
@@ -97,21 +80,19 @@ const categoryFinder = async( req = request , res = response ) => {
     res.json( userServices );
 }
 
-// Buscador de servicio por titulo
+// Search services by title
 const getServicesByTitle = async( req = request , res = response ) => {
-
     const { title } = req.params;
-    if(title){
+    if( title ){
         const services = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}, state: true});
         res.json( services );
-    }else{
+    } else {
         const services = await Service.find({})
         res.json( services );
     }
-
 }
 
-// Obtener Ultimos servicios creados
+// Show last services
 const getLastServices = async( req = request , res = response ) => {
     const services = await Service.find({state: true}).sort({date: -1});
     res.json(services);

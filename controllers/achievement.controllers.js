@@ -3,7 +3,7 @@ const { request, response } = require('express');
 // models
 const { Achievement } = require('../models');
 
-// Mostrar Servicios
+// Show all Achievement with state true (actives)
 const getAchievement = async( req = request, res = response ) => {
     const query = { state: true};
     const [ total, achievement ] = await Promise.all([
@@ -16,23 +16,22 @@ const getAchievement = async( req = request, res = response ) => {
     });
 }
 
-// Obtener categoria mediante id
+// Get Achievement by id
 const getAchievementById = async( req, res = response ) => {
     const { id } = req.params;
     const achievement = await Achievement.findById( id );
     res.json( achievement );
 }
 
-// Crear Servicios
+// Create Achievement
 const postAchievement = async( req = request, res = response ) => {
     const { name, description, state} = req.body;
     const newAchievement = new Achievement({ name, description, state });
-    // Guardar en db y esperar guardado
     await newAchievement.save();
     res.json( newAchievement );
 }
 
-// Actualizar Servicios
+// Update Achievement
 const putAchievement = async( req, res) => {
     const { id } = req.params;
     const { _id, ...remainder } = req.body;
@@ -41,7 +40,7 @@ const putAchievement = async( req, res) => {
 
 }
 
-// Eliminar Servicio
+// Delete Achievement
 const deleteAchievement = async(req, res) => {
     const { id } = req.params;
     const achievement = await Achievement.findByIdAndUpdate( id, { state: false } );
