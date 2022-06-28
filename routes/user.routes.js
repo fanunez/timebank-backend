@@ -79,6 +79,7 @@ router.put('/:id', [
 ],putUser );
 
 // Delete user
+// in later versions add a validator so that only the ADMINISTRATOR USER can run this operation
 router.delete('/:id', [
     validateJWT,
     check('id', 'El ID es obligatorio').not().isEmpty(),
