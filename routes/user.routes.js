@@ -17,7 +17,8 @@ const { getUser,
         putUser,
         deleteUser,
         balanceAsignator,
-        getUserByNameSurname 
+        getUserByNameSurname,
+        getQuantityOfUser 
 } = require('../controllers/user.controllers');
 // Init router
 const router = Router();
@@ -101,5 +102,8 @@ router.put('/balance-asignator/:id', [
 
 // Get User By Name and Surname 
 router.post('/getUserByFullName', getUserByNameSurname );
+
+// Get Quantity of Users Orange and Blue
+router.get('/get/getQuantity', getQuantityOfUser );
 
 module.exports = router;
