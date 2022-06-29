@@ -3,6 +3,7 @@ const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 // models
 const { User } = require('../models');
+const trim = require('trim')
 
 // Show all Users with state true (actives)
 const getUser = async( req = request, res = response ) => {
@@ -76,13 +77,46 @@ const balanceAsignator = async( req = request , res = response ) => {
 
 // User Finder by Name & Surname
 const getUserByNameSurname = async( req = request , res = response ) => {
-    const { name, surname } = req.params;
-    const user = await User.find({
-        name:{$regex:'.*'+name+'.*',$options:"i"},
-        surname:{$regex:'.*'+surname+'.*',$options:"i"}, 
-        state: true
-    });
-    res.json( user );
+    let { name, surname } = req.body;
+    
+    name = trim(name);
+    surname = trim(surname);
+
+    let users;
+
+    // Case 1 
+    if(name != "" && surname != ""){
+        users = await User.find({
+            name:{$regex:'.*'+name+'.*',$options:"i"},
+            surname:{$regex:'.*'+surname+'.*',$options:"i"}, 
+            state: true
+        });
+    }
+
+    // Case 2
+    if(name != "" && surname == ""){
+        users = await User.find({
+            name:{$regex:'.*'+name+'.*',$options:"i"}, 
+            state: true
+        });
+    }
+
+    // Case 3
+    if(name == "" && surname != ""){
+        users = await User.find({
+            surname:{$regex:'.*'+surname+'.*',$options:"i"}, 
+            state: true
+        });
+    }
+
+    // Case 4
+    if(name == "" && surname == ""){
+        users = await User.find({
+            state: true
+        });
+    }
+
+    res.json( users );
 }
 
 module.exports = {

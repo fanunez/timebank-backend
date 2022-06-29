@@ -100,6 +100,6 @@ router.put('/balance-asignator/:id', [
 ], balanceAsignator);
 
 // Get User By Name and Surname 
-router.get('/getUser/:name/:surname', getUserByNameSurname );
+router.post('/getUserByFullName', getUserByNameSurname );
 
 module.exports = router;
