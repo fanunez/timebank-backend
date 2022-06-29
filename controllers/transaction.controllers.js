@@ -186,6 +186,22 @@ const serviceRequestTransaction = async(req, res) => {
     res.json( servicesByTransactionO );
 }
 
+// Get By User
+const getByUser = async(req, res) => {
+
+    const { id } = req.params;
+
+    const transactions = await Transaction.find({
+        $or: [
+          { id_user_aplicant: id, state: true },
+          { id_user_owner: id, state: true }
+        ]
+    });
+
+    res.json(transactions)
+
+}
+
 
 module.exports = {
     getTransaction,
@@ -195,5 +211,6 @@ module.exports = {
     ownRequestTransaction,
     serviceRequestTransaction,
     acceptTransaction,
-    rejectTransaction
+    rejectTransaction,
+    getByUser
 }
