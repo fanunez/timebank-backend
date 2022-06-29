@@ -18,7 +18,8 @@ const { getTransaction,
         ownRequestTransaction,
         serviceRequestTransaction,
         acceptTransaction,
-        rejectTransaction 
+        rejectTransaction,
+        getByUser 
 } = require('../controllers/transaction.controllers')
 // Init router
 const router = Router();
@@ -113,6 +114,12 @@ router.post('/reject_transaction', [
     fieldValidator
 ], rejectTransaction);
 
-
+// Get Transaction By User
+router.get('/getByUser/:id', [
+    check('id', 'El ID de Usuario es obligatorio').not().isEmpty(),
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom( existUserById ),
+    fieldValidator
+], getByUser);
 
 module.exports = router;
