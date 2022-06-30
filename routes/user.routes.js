@@ -101,7 +101,7 @@ router.put('/balance-asignator/:id', [
 ], balanceAsignator);
 
 // Get User By Name and Surname 
-router.post('/getUserByFullName', getUserByNameSurname );
+router.post('/get-user-by-full-name', getUserByNameSurname );
 
 // Get Quantity of Users Orange and Blue
 router.get('/get/get-quantity', getQuantityOfUser );
