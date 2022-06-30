@@ -18,7 +18,6 @@ const getUserLogged = ( req = request, res = response ) => {
 const login = async( req, res = response ) => {
     // require email and pass params
     const { email, password } = req.body;
-
     try {
         // Verify if email exists
         const user = await User.findOne({ email });
@@ -35,12 +34,12 @@ const login = async( req, res = response ) => {
         }
         // Verify password
         const validPassword = bcryptjs.compareSync( password, user.password );
-        const user_pass = await User.findOne({ validPassword });
-        if( !user_pass ) {
+        if( !validPassword ) {
             return res.status(400).json({
                 msg: 'Email / Password no son correctos - password'
             })
-        }
+        }    
+
         // Generate JWT
         const token = await generateJWT( user.id );
         // Return user logged and JWT token
