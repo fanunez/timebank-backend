@@ -97,7 +97,7 @@ const getServicesByTitle = async( req = request , res = response ) => {
 
 // Show last services
 const getLastServices = async( req = request , res = response ) => {
-    const services = await Service.find({state: true}).sort({date: -1});
+    const services = await Service.find({state: true}).sort({date: -1}).limit(5);
     res.json(services);
 }
 
