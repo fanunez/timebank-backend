@@ -60,7 +60,7 @@ const postTransaction = async( req = request, res = response ) => {
         const newNotification = new Notification({ id_user, id_service, description, date});
         await newNotification.save();
 
-        res.json( newTransaction );
+        return res.json('Se ha inscrito correctamente al servicio');
 
     }
 }
