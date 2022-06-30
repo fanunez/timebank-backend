@@ -57,8 +57,8 @@ router.delete('/:id', [
     fieldValidator
 ], deleteNotification);
 
-// Get all notification
-router.get('/user-notifactions/:id', [
+// Get Notifications By User
+router.get('/user-notifications/:id', [
     check('id').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),
