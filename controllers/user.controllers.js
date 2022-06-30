@@ -45,7 +45,7 @@ const postUser = async( req = request, res = response ) => {
 // Update User
 const putUser = async( req, res ) => {
     const { id } = req.params;
-    const { _id, password, email, ...remainder } = req.body;
+    const { _id, password, email, rut, age, balance, type_user, ...remainder } = req.body;
     // Encrypt password
     if( password ) {
        const salt = bcryptjs.genSaltSync(); // Number of turns to make decryption difficult
