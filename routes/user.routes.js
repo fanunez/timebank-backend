@@ -64,18 +64,12 @@ router.put('/:id', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('surname', 'El apellido es obligatorio').not().isEmpty(),
     check('relation').isIn(['Estudio', 'Trabajo', 'Vivo']),
-    check('age', 'La edad es obligatoria').not().isEmpty(),
-    check('age').toFloat().isNumeric(),
     check('address').not().isEmpty(),
     check('phone', 'El numero de telefono es obligatorio').not().isEmpty(),
     check('phone').exists(),
-    check('rut', 'El rut es obligatorio').not().isEmpty(),
-    check('rut').custom( validateRUT ),
     check('email', 'El correo es obligatorio').not().isEmpty(),
     check('email', 'El correo no es válido').isEmail(),
     check('email').custom( emailValidator ),
-    check('type_user', 'El tipo de usario es obligatorio').not().isEmpty(),
-    check('type_user').isIn(['Blue', 'Orange']),
     fieldValidator
 ],putUser );
 
