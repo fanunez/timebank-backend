@@ -104,6 +104,6 @@ router.put('/balance-asignator/:id', [
 router.post('/getUserByFullName', getUserByNameSurname );
 
 // Get Quantity of Users Orange and Blue
-router.get('/get/getQuantity', getQuantityOfUser );
+router.get('/get/get-quantity', getQuantityOfUser );
 
 module.exports = router;
