@@ -115,7 +115,7 @@ router.post('/reject_transaction', [
 ], rejectTransaction);
 
 // Get Transaction By User
-router.get('/getByUser/:id', [
+router.get('/get-by-user/:id', [
     check('id', 'El ID de Usuario es obligatorio').not().isEmpty(),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom( existUserById ),

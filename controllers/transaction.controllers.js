@@ -1,7 +1,12 @@
 // npm packages
 const { request, response } = require('express');
 // models
-const { Transaction, Service, User, Notification } = require('../models');
+const { Transaction,
+        Service,
+        User,
+        Notification 
+} = require('../models');
+// moongose package
 var mongoose = require('mongoose');
 
 // Get all transactions
@@ -186,19 +191,45 @@ const serviceRequestTransaction = async(req, res) => {
     res.json( servicesByTransactionO );
 }
 
-// Get By User
+// Get aplicant and owner transactions by user
 const getByUser = async(req, res) => {
 
     const { id } = req.params;
-
+    // filter all transaction owned or aplied by USER
     const transactions = await Transaction.find({
         $or: [
           { id_user_aplicant: id, state: true },
           { id_user_owner: id, state: true }
         ]
     });
+    // generate payload with transaction format
+    let payload = [];
+    for ( const transaction of transactions ) {
+        const owner = await User.findById( transaction.id_user_owner );
+        const applicant = await User.findById( transaction.id_user_aplicant );
+        const service = await Service.findById( transaction.id_service );
+        
+        const transactionFormatter = {
+            id_transaction: transaction.id,
+            owner: {
+                name: owner.name,
+                surname: owner.surname
+            },
+            applicant: {
+                uid: applicant.id,
+                name: applicant.name,
+                surname: applicant.surname
+            },
+            service: service.title,
+            date: transaction.date,
+            state_request: transaction.state_request,
+        }
 
-    res.json(transactions)
+        payload.push( transactionFormatter );
+
+    }
+
+    res.json( payload );
 
 }
 
