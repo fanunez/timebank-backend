@@ -2,6 +2,7 @@
 const { request, response } = require('express');
 // models
 const { Category } = require('../models');
+const trim = require('trim')
 
 // Show all Categories with state true (actives)
 const getCategory = async( req = request, res = response ) => {
@@ -33,7 +34,8 @@ const postCategory = async( req = request, res = response ) => {
 
 // Category searcher by title
 const getCategoryByTitle = async( req = request , res = response ) => {
-    const { name } = req.params;
+    let { name } = req.params;
+    name = trim(name);
     if(name){
         const categories = await Category.find({name:{$regex:'.*'+name+'.*',$options:"i"},state: true});
         res.json( categories );

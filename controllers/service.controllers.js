@@ -3,6 +3,7 @@ const { request, response } = require('express');
 var mongoose = require('mongoose');
 // models
 const { Service } = require('../models');
+const trim = require('trim')
 
 // Show all Services with state true (actives)
 const getService = async( req = request, res = response ) => {
@@ -58,7 +59,8 @@ const serviceUserFinder = async( req = request , res = response ) => {
 
 // Search services by owner
 const serviceSearcherUserFilteredbyName = async( req = request , res = response ) => {
-    const { id, title } = req.params;
+    let { id, title } = req.params;
+    title = trim(title);
     const objectId = mongoose.Types.ObjectId( id );
     const userServices = await Service.find({id_owner: objectId, state: true});
     let Arr = [];
@@ -82,7 +84,8 @@ const categoryFinder = async( req = request , res = response ) => {
 
 // Search services by title
 const getServicesByTitle = async( req = request , res = response ) => {
-    const { title } = req.params;
+    let { title } = req.params;
+    title = trim(title);
     if( title ){
         const services = await Service.find({title:{$regex:'.*'+title+'.*',$options:"i"}, state: true});
         res.json( services );

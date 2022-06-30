@@ -4,7 +4,7 @@ const { request, response } = require('express');
 const { Transaction, Service, User, Notification } = require('../models');
 var mongoose = require('mongoose');
 
-// Mostrar Transacciones
+// Get all transactions
 const getTransaction = async( req = request, res = response ) => {
 
     const query = { state: true };
@@ -21,7 +21,7 @@ const getTransaction = async( req = request, res = response ) => {
 
 }
 
-// Crear Transaccion
+// Transaction create
 const postTransaction = async( req = request, res = response ) => {
 
     const { id_user_aplicant, id_user_owner, id_service, state_request, state } = req.body;
@@ -66,7 +66,7 @@ const postTransaction = async( req = request, res = response ) => {
 }
 
 
-// Aceptar Transaccion
+// Transaction Accept
 const acceptTransaction = async( req = request, res = response ) => {
     const { id_transaction } = req.body;
 
@@ -92,7 +92,7 @@ const acceptTransaction = async( req = request, res = response ) => {
     res.json("La transaccion fue aceptada")
 }
 
-// Rechazar Transaccion
+// Transaction Reject
 const rejectTransaction = async( req = request, res = response ) => {
     
     const {id_transaction} = req.body;
@@ -121,7 +121,7 @@ const rejectTransaction = async( req = request, res = response ) => {
     res.json("La transaccion fue rechazada")
 }
 
-// Actualizar Transaccion
+// Transaction Update
 const putTransaction = async( req, res) => {
     const { id } = req.params;
     const { _id, ...remainder } = req.body;
@@ -129,7 +129,7 @@ const putTransaction = async( req, res) => {
     res.json( newTransaction );
 }
 
-// Eliminar Transaccion
+// Transaction Delete
 const deleteTransaction = async(req, res) => {
 
     const { id } = req.params;
@@ -142,7 +142,7 @@ const deleteTransaction = async(req, res) => {
 
 }
 
-// Vista Mis solicitudes (por usuario ID del aplicante) 
+// Own Request View (By User Aplicant ID) 
 const ownRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
@@ -164,7 +164,7 @@ const ownRequestTransaction = async(req, res) => {
     res.json( servicesByTransaction );
 }
 
-// Vista Solicitudes enviadas a mis servicios (por usuario ID del dueño)
+// Requests sent to my services (By Owner ID)
 const serviceRequestTransaction = async(req, res) => {
     const { id } = req.params;
     const objectId = mongoose.Types.ObjectId(id);
