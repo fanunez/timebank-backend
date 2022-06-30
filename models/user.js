@@ -57,6 +57,9 @@ const UserSchema = Schema({
         type: Date,
         required: [true, 'La fecha de ultima conexión es obligatoria']
     },
+    preferences:{
+        type: [Schema.Types.ObjectId] 
+    },
     state: {
         type: Boolean,
         default: true

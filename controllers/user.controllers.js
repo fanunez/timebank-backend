@@ -83,7 +83,6 @@ const getUserByNameSurname = async( req = request , res = response ) => {
     surname = trim(surname);
 
     let users;
-
     // Case 1 
     if(name != "" && surname != ""){
         users = await User.find({
@@ -92,25 +91,22 @@ const getUserByNameSurname = async( req = request , res = response ) => {
             state: true
         });
     }
-
     // Case 2
-    if(name != "" && surname == ""){
+    else if(name != "" && surname == ""){
         users = await User.find({
             name:{$regex:'.*'+name+'.*',$options:"i"}, 
             state: true
         });
     }
-
     // Case 3
-    if(name == "" && surname != ""){
+    else if(name == "" && surname != ""){
         users = await User.find({
             surname:{$regex:'.*'+surname+'.*',$options:"i"}, 
             state: true
         });
     }
-
     // Case 4
-    if(name == "" && surname == ""){
+    else if(name == "" && surname == ""){
         users = await User.find({
             state: true
         });
