@@ -4,7 +4,7 @@ const { request, response } = require('express');
 const { Achievement } = require('../models');
 
 // Show all Achievement with state true (actives)
-const getAchievement = async( req = request, res = response ) => {
+const getAchievement = async( _req = request, res = response ) => {
     const query = { state: true};
     const [ total, achievement ] = await Promise.all([
         Achievement.countDocuments( query ),

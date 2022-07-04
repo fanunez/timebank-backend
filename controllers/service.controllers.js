@@ -1,12 +1,12 @@
 // npm packages
 const { request, response } = require('express');
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 // models
 const { Service } = require('../models');
 const trim = require('trim')
 
 // Show all Services with state true (actives)
-const getService = async( req = request, res = response ) => {
+const getService = async( _req = request, res = response ) => {
     const query = { state: true};
     const [ total, services ] = await Promise.all([
         Service.countDocuments( query ),
@@ -96,13 +96,13 @@ const getServicesByTitle = async( req = request , res = response ) => {
 }
 
 // Show last services
-const getLastServices = async( req = request , res = response ) => {
+const getLastServices = async( _req = request , res = response ) => {
     const services = await Service.find({state: true}).sort({date: -1}).limit(5);
     res.json(services);
 }
 
 // Show popular services
-const getPopularServices = async( req = request, res = response ) => {
+const getPopularServices = async( _req = request, res = response ) => {
     const services = await Service.find({state: true}).sort({request_counter: -1}).limit(5);
     res.json(services);
 }

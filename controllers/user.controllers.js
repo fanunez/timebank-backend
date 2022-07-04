@@ -116,7 +116,7 @@ const getUserByNameSurname = async( req = request , res = response ) => {
 }
 
 // Get Quantity of Orange and Blue Users
-const getQuantityOfUser = async( req = request, res = response ) => {
+const getQuantityOfUser = async( _req = request, res = response ) => {
     
     const BlueQuantity = await User.find( {type_user : "Blue" , state: true} ).countDocuments();
     const OrangeQuantity = await User.find( {type_user : "Orange", state: true} ).countDocuments();

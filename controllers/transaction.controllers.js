@@ -7,10 +7,10 @@ const { Transaction,
         Notification 
 } = require('../models');
 // moongose package
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Get all transactions
-const getTransaction = async( req = request, res = response ) => {
+const getTransaction = async( _req = request, res = response ) => {
 
     const query = { state: true };
 
@@ -156,8 +156,8 @@ const ownRequestTransaction = async(req, res) => {
     let servicesByTransaction = [];
 
     for( const transaction of transactions ) {
-        const id = transaction.id_service;
-        const service = await Service.findById( id );
+        const id_service = transaction.id_service;
+        const service = await Service.findById( id_service );
         const payload = {
             title: service.title,
             uid_owner: transaction.id_user_owner,
@@ -178,8 +178,8 @@ const serviceRequestTransaction = async(req, res) => {
     let servicesByTransactionO = [];
 
     for( const transaction of serviceTransactions ) {
-        const id = transaction.id_service;
-        const service = await Service.findById( id );
+        const id_service = transaction.id_service;
+        const service = await Service.findById( id_service );
         const payload = {
             title: service.title,
             id_service: transaction.id_service,

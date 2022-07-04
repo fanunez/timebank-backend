@@ -4,7 +4,7 @@ const { request, response } = require('express');
 const { Notification } = require('../models');
 
 // Show all Notifications with state true (actives)
-const getNotification = async( req = request, res = response ) => {
+const getNotification = async( _req = request, res = response ) => {
     const query = { state: true};
     const [ total, notificacion ] = await Promise.all([
         Notification.countDocuments( query ),

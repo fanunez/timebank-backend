@@ -5,7 +5,7 @@ const { Category } = require('../models');
 const trim = require('trim')
 
 // Show all Categories with state true (actives)
-const getCategory = async( req = request, res = response ) => {
+const getCategory = async( _req = request, res = response ) => {
     const query = { state: true};
     const [ total, categories ] = await Promise.all([
         Category.countDocuments( query ),
